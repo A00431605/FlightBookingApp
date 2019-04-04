@@ -158,3 +158,7 @@ F:\ClassProject\FlightBookingApp\FlightBookingApp\obj\Debug\FlightBookingApp.csp
 F:\ClassProject\FlightBookingApp\FlightBookingApp\obj\Debug\FlightBookingApp.csproj.CopyComplete
 F:\ClassProject\FlightBookingApp\FlightBookingApp\obj\Debug\FlightBookingApp.dll
 F:\ClassProject\FlightBookingApp\FlightBookingApp\obj\Debug\FlightBookingApp.pdb
+F:\ClassProject\FlightBookingApp\FlightBookingApp\bin\EntityFramework.dll
+F:\ClassProject\FlightBookingApp\FlightBookingApp\bin\EntityFramework.SqlServer.dll
+F:\ClassProject\FlightBookingApp\FlightBookingApp\bin\EntityFramework.xml
+F:\ClassProject\FlightBookingApp\FlightBookingApp\bin\EntityFramework.SqlServer.xml

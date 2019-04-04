@@ -1,7 +1,12 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-
+﻿<form id="form1" method="post" action="/Search/Index"
+      enctype="application/x-www-form-urlencoded">
+    <div>
+        <label for="status">Status</label>
+    </div>
+    <div>
+        <input name="status" type="text" />
+    </div>
+    <div>
+        <input type="submit" value="Submit" />
+    </div>
+</form>
