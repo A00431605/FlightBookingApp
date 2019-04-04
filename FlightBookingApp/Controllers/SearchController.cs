@@ -25,6 +25,8 @@ namespace FlightBookingApp.Controllers
         public ActionResult Index(Search search)
         {
             // Console.WriteLine("search is :");
+            // refer: https://stackoverflow.com/questions/137660/where-does-console-writeline-go-in-asp-net
+
             System.Diagnostics.Debug.WriteLine("----------------");
             System.Diagnostics.Debug.WriteLine(search.Status);
 
