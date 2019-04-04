@@ -8,10 +8,11 @@ namespace FlightBookingApp.Controllers
 {
     public class SearchController : Controller
     {
-        // GET: Search
+        // POST:search available flights
+        [HttpPost]
         public ActionResult Index()
         {
-            return View();
+            return View("SearchPage");
         }
     }
 }
