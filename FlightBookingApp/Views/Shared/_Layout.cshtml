@@ -2,43 +2,75 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Flight booking App</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="@Url.Content("~/favicon/apple-touch-icon.png")">
+    <link rel="icon" type="image/png" href="@Url.Content("~/favicon/favicon-32x32.png")" sizes="32x32">
+    <link rel="icon" type="image/png" href="@Url.Content("~/favicon/favicon-16x16.png")" sizes="16x16">
+    <link rel="manifest" href="@Url.Content("~/favicon/manifest.json")">
+    <link rel="mask-icon" href="@Url.Content("~/favicon/safari-pinned-tab.svg")" color="#503b75">
+
+
+    <link href="~/Styles/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Styles/bootstrap/bootstrap-theme.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/Styles/Main.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Styles/HomeBody.css")" />
+
+
+    <!-- jQuery and Bootstrap scripts -->
+    <script src="https://code.jquery.com/jquery-2.0.0.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        window.HostPath='@Url.Content("~/")';
+    </script>
+
+    <!-- App scripts -->
+    <script src="@Url.Content("~/Scripts/app.js")" type="text/javascript"></script>
+
+
 </head>
 <body>
-       <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Make a Trip", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WT462SJ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="PnlTopBCK">
+        <div class="maincontainer">
+            <div class="topbar">
+                @Html.ActionLink("Flight Booking App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div class="topmenu">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                            <span id="LblUserName"></span>&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li>@Html.ActionLink("Login", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Sign up", "signup", "Home")</li>
+                            <li>@Html.ActionLink("My Bookings", "Index", "Orders")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-              
-                <ul class="nav navbar-nav navbar-right">
-                  
-                    <li >@Html.ActionLink("Login", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Sign up", "signup", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+
+            <div class="pagecontainer_Home">
+                <div class="pagetext">
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="footer">
+                ©@System.DateTime.Today.Year.ToString() GrapeCity, Inc. All Rights Reserved.
             </div>
         </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Flight Application</p>
-        </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>
+

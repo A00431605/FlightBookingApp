@@ -78,3 +78,7 @@ C:\Users\Subhasibi\source\repos\FlightBookingApp\FlightBookingApp\obj\Debug\Flig
 C:\Users\Subhasibi\source\repos\FlightBookingApp\FlightBookingApp\obj\Debug\FlightBookingApp.csproj.CopyComplete
 C:\Users\Subhasibi\source\repos\FlightBookingApp\FlightBookingApp\obj\Debug\FlightBookingApp.dll
 C:\Users\Subhasibi\source\repos\FlightBookingApp\FlightBookingApp\obj\Debug\FlightBookingApp.pdb
+C:\Users\Subhasibi\source\repos\FlightBookingApp\FlightBookingApp\bin\EntityFramework.dll
+C:\Users\Subhasibi\source\repos\FlightBookingApp\FlightBookingApp\bin\EntityFramework.SqlServer.dll
+C:\Users\Subhasibi\source\repos\FlightBookingApp\FlightBookingApp\bin\EntityFramework.xml
+C:\Users\Subhasibi\source\repos\FlightBookingApp\FlightBookingApp\bin\EntityFramework.SqlServer.xml
