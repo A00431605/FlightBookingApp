@@ -7,6 +7,11 @@
 <script src="@Url.Content("~/Scripts/index.js")" type="text/javascript"></script>
 <script id="RecentSearchesTemplate" type="text/template">
 </script>
+<script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker(); //Initialise any date pickers
+    });
+</script>
 
 <div id="PnlHomePage">
     <div id="HomePageTitle">SEARCH FLIGHTS</div>
@@ -30,22 +35,27 @@
             <div style="float:right;">
                 <div class="TextBCK">
                     <span id="Title">ARRIVAL</span>
-                    @Html.EditorFor(model => model.flight_to)
+                    @Html.TextBoxFor(model => model.flight_to)
+
 
                 </div>
             </div>
         </div>
 
         <br /> <br />
-        <div class="MyRow">
-            <div class="DateBCK">
-            </div>
-            <div class="DateBCK" id="DivReturnDate">
-                @Html.EditorFor(model => model.operating_date_from)
-            </div>
-
-
-        </div>
+               <div class="MyRow">
+                   <div class="TextBCK">
+                       <span id="Title">DEPARTURE DATE</span>  &nbsp;&nbsp;
+                       @Html.TextBoxFor(model => model.operating_date_from, new { @class = "datepicker", placeholder = "Enter Departure Date" })
+                   </div>
+                   <div class="flightdirection" id="FlightDir">
+                       
+                   </div>
+                   <div class="TextBCK">
+                       <span id="Title">ARRIVAL DATE</span>  &nbsp;&nbsp;
+                       @Html.TextBoxFor(model => model.operating_date_to, new { @class = "datepicker", placeholder = "Enter Departure Date" })
+                   </div>
+               </div>
 
         <br /><br /><br />
         <div class="MyRow">
