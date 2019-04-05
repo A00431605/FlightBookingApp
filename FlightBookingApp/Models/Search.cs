@@ -10,6 +10,14 @@ namespace FlightBookingApp.Models
     {
         [Required]
         [MaxLength(140)]
-        public string Status { get; set; }
+        public string from { get; set; }
+
+        [Required]
+        [MaxLength(140)]
+        public string to { get; set; }
+
+        [Required]
+        [MaxLength(140)]
+        public string fromtime { get; set; }
     }
 }
