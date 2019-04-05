@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,10 +21,19 @@ namespace FlightBookingApp.Controllers
 
             return View();
         }
+
         public ActionResult Login()
+        {
+           
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Autherize(FlightBookingApp.Models.customer_book customerModel)
         {
             return View();
         }
+
         public  ActionResult signUp()
         {
             return View();

@@ -31,12 +31,17 @@ namespace FlightBookingApp.Models
         public string customer_phonenumber { get; set; }
 
         [StringLength(256)]
+        [Display(Name = "Username")]
+        [Required(ErrorMessage = "UserName is required")]
         public string customer_emailaddress { get; set; }
 
         [StringLength(256)]
         public string customer_postalcode { get; set; }
 
         [StringLength(256)]
+        [Display(Name = "Password")]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Password is required")]
         public string customer_password { get; set; }
     }
 }
