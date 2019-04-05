@@ -147,6 +147,7 @@
     <Compile Include="Models\customer_book.cs" />
     <Compile Include="Models\flight.cs" />
     <Compile Include="Models\FlightBookingEntity.cs" />
+    <Compile Include="Models\Search.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +267,7 @@
     <Content Include="Views\Payment\PaymentConfirmation.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\OrderCancel.cshtml" />
+    <Content Include="Views\Search\ShowSearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
