@@ -1,7 +1,84 @@
-﻿
+﻿@using System.Collections
+@using FlightBookingApp.Models
+@model IEnumerable<Hashtable>
 @{
     ViewBag.Title = "Index";
 }
+<h2>Order details</h2>
+@{int total = 0;}
+@{int qty = 0;}
+@{int flight_id = 0;}
+@{int customer_id = 1;}
+<table border="1px">
+    @foreach (var eachFlight in (IEnumerable<Hashtable>)TempData["flight_details"])
+    {
+    <tr>
+        <td><b>flight_id</b>@eachFlight["flight_id"]</td>
+        <td><b>airline_name</b>@eachFlight["airline_name"]</td>
+        <td><b>flight_no</b>@eachFlight["flight_no"]</td>
+        <td><b>flight_from</b>@eachFlight["flight_from"]</td>
+        <td><b>flight_to</b>@eachFlight["flight_to"]</td>
+        <td><b>operating_date_from</b>@eachFlight["operating_date_from"]</td>
+        <td><b>operating_date_to</b>@eachFlight["operating_date_to"]</td>
+        <td><b>flight_timing_from</b>@eachFlight["flight_timing_from"]</td>
+        <td><b>flight_timing_to</b>@eachFlight["flight_timing_to"]</td>
+        <td><b>class_type</b>@eachFlight["class_type"]</td>
+        <td><b>eco_cost</b>@eachFlight["cost"]</td>
+        <td><b>Qty</b>@eachFlight["qty"]</td>
+        <td><b>Total Cost</b>@eachFlight["Totalcost"]</td>
+        @{total = (int)eachFlight["Totalcost"];}
+        @{qty = (int)eachFlight["qty"];}
+        @{flight_id = (int)eachFlight["flight_id"];}
+    </tr>
+    }
+</table>
 
-<h2>Index</h2>
+<h2>Payment Page</h2>
+Amount of CAD @total will be deducted from your card.
+<form id="form1" method="post" action="/Payment/PaymentConfirmation" enctype="application/x-www-form-urlencoded">
+    <div>
+        <label for="cc">Credit Card No</label>
+    </div>
+    <div>
+        <input name="cc" type="text" />
+    </div>
 
+    <div>
+        <label for="NameOnCC">Name on credit card</label>
+    </div>
+    <div>
+        <input name="NameOnCC" type="text" />
+    </div>
+
+    <div>
+        <label for="cardType">Credit card type</label>
+    </div>
+    <div>
+        <div>
+            <label for="cardType">Visa</label>
+            <input name="cardType" type="radio" value="radio" />
+
+            <label for="cardType">MasterCard</label>
+            <input name="cardType" type="radio" value="master" />
+
+            <label for="cardType">American Express</label>
+            <input name="cardType" type="radio" value="aexpress" />
+        </div>
+    </div>
+
+    <div>
+        <label for="expDate">Expiration date</label>
+    </div>
+    <div>
+        <input name="expDate" type="date" />
+    </div>
+    <input type="hidden" name="payment" value="@total" />
+    <input type="hidden" name="status" value="'Booked'" />
+    <input type="hidden" name="flight_id" value="@flight_id" />
+    <input type="hidden" name="customer_id" value="@customer_id" />
+    <input type="hidden" name="qty" value="@qty" />
+
+    <div>
+        <input type="submit" value="Submit" />
+    </div>
+</form>

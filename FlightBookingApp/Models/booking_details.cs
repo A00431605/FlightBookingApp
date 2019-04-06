@@ -25,5 +25,18 @@ namespace FlightBookingApp.Models
 
         [StringLength(256)]
         public string status { get; set; }
+
+        [Required(ErrorMessage = "Please enter valid credit card number")]
+        [CreditCard]
+        public string cc { get; set; }
+
+        [Required(ErrorMessage ="Name of credit card is required.")]
+        public string NameOnCC { get; set; }
+
+        [Required(ErrorMessage ="Please choose appropriate card type.")]
+        public string cardType { get; set; }
+
+        [Required(ErrorMessage ="Please select valid expiry date")]
+        public string expDate { get; set; }
     }
 }
