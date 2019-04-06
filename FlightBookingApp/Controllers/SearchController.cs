@@ -101,11 +101,10 @@ namespace FlightBookingApp.Controllers
             SqlConnection connection = new SqlConnection(connetionString);
 
             String sqlPattern = @"select C.*,D.airline_name
-from(SELECT A.airline_id,A.flight_from,A.flight_to,A.flight_no,B.* FROM flight as A join flight_operating_dates as B
-on A.flight_id = B.flight_id
+from(SELECT A.* FROM flight as A 
 where A.flight_from = '{0}' and A.flight_to = '{1}'
 and
-B.operating_date_from = '{2}' and B.operating_date_to='{3}'
+A.operating_date_from = '{2}' and A.operating_date_to='{3}'
 ) as C
 join
 airline as D
