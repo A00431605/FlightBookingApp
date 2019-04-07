@@ -20,15 +20,15 @@ namespace FlightBookingApp.Models
         [MaxLength(140)]
         public string fromtime { get; set; }
 
-        [Required]
+      
         [MaxLength(140)]
         public string totime { get; set; }
 
-        [Required]
+      
         [MaxLength(140)]
         public string airline_choice { get; set; }
 
-        [Required]
+      
         [MaxLength(140)]
         public string price_range { get; set; }
 
@@ -37,7 +37,7 @@ namespace FlightBookingApp.Models
         [MaxLength(140)]
         public string people_count { get; set; }
 
-        
+
 
 
 

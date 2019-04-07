@@ -18,8 +18,8 @@ namespace FlightBookingApp.Models
         [StringLength(50)]
         public string flight_no { get; set; }
 
-        [StringLength(50)]
         [Display(Name = "Departure From ")]
+        [StringLength(50)]
         public string flight_from { get; set; }
 
         [StringLength(50)]
@@ -45,25 +45,9 @@ namespace FlightBookingApp.Models
         public int? seats_booked { get; set; }
 
         public int? seats_blocked { get; set; }
-
         public List<flight> flightList { get; set; }
 
-        //public int? eco_total_seats { get; set; }
-
-        //public int? eco_seats_booked { get; set; }
-
-        //public int? eco_seats_blocked { get; set; }
-
-        //public int? firstclass_total_seats { get; set; }
-
-        //public int? firstclass_seats_booked { get; set; }
-
-        //public int? firstclass_seats_blocked { get; set; }
-
         public int? cost { get; set; }
-
-        //public int? eco_cost { get; set; }
-
-        //public int? firstclass_cost { get; set; }
+        public string flight_name { get; set; }
     }
 }
