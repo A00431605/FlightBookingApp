@@ -1,6 +1,7 @@
 ﻿@using System.Collections
 @using FlightBookingApp.Models
-@model IEnumerable<Hashtable>
+@*@model IEnumerable<Hashtable>*@
+@model booking_details
 @{
     ViewBag.Title = "Payment";
 }
@@ -33,13 +34,22 @@
     }
 </table>
 
-<h2>Payment</h2>
+<h2>Payment Page</h2>
+Amount of CAD @total will be deducted from your card.
+<form id="form1" method="post" action="/Payment/PaymentConfirmation" enctype="application/x-www-form-urlencoded">
+    @Html.ValidationSummary(true)
+    <div>
+        <label for="cc">Credit Card No</label>
+    </div>
+    <div>
+        @Html.TextBoxFor(Model => Model.cc, new { @class = "form-control" })
+    </div>
 
     <div>
         <label for="NameOnCC">Name on credit card</label>
     </div>
     <div>
-        <input name="NameOnCC" type="text" />
+        @Html.TextBoxFor(Model => Model.NameOnCC, new { @class = "form-control" })
     </div>
 
     <div>
@@ -47,14 +57,15 @@
     </div>
     <div>
         <div>
-            <label for="cardType">Visa</label>
-            <input name="cardType" type="radio" value="radio" />
+            @Html.Label("Visa")
+            @Html.RadioButtonFor(Model => Model.cardType, "Visa")
 
-            <label for="cardType">MasterCard</label>
-            <input name="cardType" type="radio" value="master" />
+            @Html.Label("Master Card")
+            @Html.RadioButtonFor(Model => Model.cardType, "MasterCard")
 
-            <label for="cardType">American Express</label>
-            <input name="cardType" type="radio" value="aexpress" />
+            @Html.Label("American Express")
+            @Html.RadioButtonFor(Model => Model.cardType, "AmericanExpress")
+
         </div>
     </div>
 
@@ -62,13 +73,13 @@
         <label for="expDate">Expiration date</label>
     </div>
     <div>
-        <input name="expDate" type="date" />
+        @Html.TextBoxFor(Model =>Model.expDate, new { type = "date"})
     </div>
-    <input type="hidden" name="payment" value="@total" />
+    @*<input type="hidden" name="payment" value="@total" />
     <input type="hidden" name="status" value="'Booked'" />
     <input type="hidden" name="flight_id" value="@flight_id" />
     <input type="hidden" name="customer_id" value="@customer_id" />
-    <input type="hidden" name="qty" value="@qty" />
+    <input type="hidden" name="qty" value="@qty" />*@
 
     <div>
         <input type="submit" value="Submit" />

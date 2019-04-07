@@ -27,7 +27,7 @@ namespace FlightBookingApp.Models
         public string status { get; set; }
 
         [Required(ErrorMessage = "Please enter valid credit card number")]
-        [CreditCard]
+        [CreditCard(ErrorMessage ="Invalid Credit Card Number")]
         public string cc { get; set; }
 
         [Required(ErrorMessage ="Name of credit card is required.")]

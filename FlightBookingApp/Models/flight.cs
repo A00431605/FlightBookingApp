@@ -46,9 +46,24 @@ namespace FlightBookingApp.Models
 
         public int? seats_blocked { get; set; }
 
+        public List<flight> flightList { get; set; }
+
+        //public int? eco_total_seats { get; set; }
+
+        //public int? eco_seats_booked { get; set; }
+
+        //public int? eco_seats_blocked { get; set; }
+
+        //public int? firstclass_total_seats { get; set; }
+
+        //public int? firstclass_seats_booked { get; set; }
+
+        //public int? firstclass_seats_blocked { get; set; }
+
         public int? cost { get; set; }
 
+        //public int? eco_cost { get; set; }
 
-        public List<flight> flightList { get; set; }
+        //public int? firstclass_cost { get; set; }
     }
 }
