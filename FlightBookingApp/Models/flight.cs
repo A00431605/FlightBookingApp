@@ -48,6 +48,8 @@ namespace FlightBookingApp.Models
 
         public List<flight> flightList { get; set; }
 
+        public string flight_name { get; set; }
+
         //public int? eco_total_seats { get; set; }
 
         //public int? eco_seats_booked { get; set; }
