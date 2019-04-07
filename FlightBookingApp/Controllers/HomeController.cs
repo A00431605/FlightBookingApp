@@ -1,5 +1,6 @@
-﻿
-using FlightBookingApp.Models;
+
+﻿using FlightBookingApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -13,9 +14,13 @@ namespace FlightBookingApp.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
+            Search sd = new Search();
+            FlightBookingEntity db = new FlightBookingEntity();
+            List<airline> ob = db.airlines.ToList();
 
+            return View(sd);
+
+        }
 
         public ActionResult Contact()
         {
