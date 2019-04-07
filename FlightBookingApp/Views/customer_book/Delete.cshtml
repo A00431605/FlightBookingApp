@@ -1,0 +1,96 @@
+﻿@model FlightBookingApp.Models.customer_book
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>customer_book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.birth_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.birth_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer_address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer_address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer_phonenumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer_phonenumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer_emailaddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer_emailaddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer_postalcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer_postalcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer_password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer_password)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
