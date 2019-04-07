@@ -47,5 +47,8 @@ namespace FlightBookingApp.Models
         public int? seats_blocked { get; set; }
 
         public int? cost { get; set; }
+
+
+        public List<flight> flightList { get; set; }
     }
 }

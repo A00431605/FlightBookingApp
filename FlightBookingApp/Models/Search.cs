@@ -1,6 +1,6 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -37,6 +37,7 @@ namespace FlightBookingApp.Models
         [MaxLength(140)]
         public string people_count { get; set; }
 
+        
 
 
 
