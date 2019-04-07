@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightBookingApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,10 +11,14 @@ namespace FlightBookingApp.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            Search sd = new Search();
+            FlightBookingEntity db = new FlightBookingEntity();
+            List<airline> ob = db.airlines.ToList();
+
+            return View(sd);
+
         }
 
-       
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -24,11 +29,13 @@ namespace FlightBookingApp.Controllers
         {
             return View();
         }
-        public  ActionResult signUp()
+        public ActionResult signUp()
         {
             return View();
         }
 
+      
         
+
     }
 }

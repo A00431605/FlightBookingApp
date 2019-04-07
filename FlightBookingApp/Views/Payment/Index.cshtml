@@ -2,7 +2,7 @@
 @using FlightBookingApp.Models
 @model IEnumerable<Hashtable>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Payment";
 }
 <h2>Order details</h2>
 @{int total = 0;}
@@ -33,15 +33,7 @@
     }
 </table>
 
-<h2>Payment Page</h2>
-Amount of CAD @total will be deducted from your card.
-<form id="form1" method="post" action="/Payment/PaymentConfirmation" enctype="application/x-www-form-urlencoded">
-    <div>
-        <label for="cc">Credit Card No</label>
-    </div>
-    <div>
-        <input name="cc" type="text" />
-    </div>
+<h2>Payment</h2>
 
     <div>
         <label for="NameOnCC">Name on credit card</label>
