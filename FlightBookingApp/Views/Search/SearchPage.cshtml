@@ -1,8 +1,6 @@
 ﻿<h1>Search Result</h1>
-
 @model System.Data.DataTable
 @using System.Data
-
 <table class="table">
     <thead>
         <tr>
@@ -24,3 +22,55 @@
             </tr>
         }
     </tbody>
+</table>
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            var result = []
+            $("button[name='order_but']").click(function () {
+                result = []
+
+                // get closest td
+                $("[name='order_but']").closest('tr').find('td').each(function () {
+                    var textval = $(this).text(); // this will be the text of each <td>
+                    result.push(textval);
+                });
+
+                // send json
+
+                model = {
+                    flight_id: result[0],
+                    airline_id: result[1],
+                    flight_no: result[2],
+                    flight_from: result[3],
+                    flight_to: result[4],
+                    operating_date_from: result[5],
+                    operating_date_to: result[6],
+                    flight_timing_from: result[7],
+                    flight_timing_to: result[8],
+                    total_seats: result[9],
+                    seats_booked: result[10],
+                    seats_blocked: result[11],
+                    cost: result[12],
+                    airline_name: result[13]
+                };
+
+                $.ajax({
+                    url: '@Url.Action("Index","TestOrder")',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify(model),
+                    contentType: 'application/json',
+
+                    success: function (data) {
+                        alert(success);
+                    },
+
+
+                });
+            });
+        });
+    </script>
+}
+
