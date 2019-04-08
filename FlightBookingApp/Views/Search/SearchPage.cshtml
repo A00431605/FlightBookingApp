@@ -18,7 +18,7 @@
                 {
                     <td>@row[col.ColumnName]</td>
                 }
-                <td><button type="button" class="btn btn-primary">Order</button></td>
+                <td><button type="button" class="btn btn-primary" name="order_but">Order</button></td>
             </tr>
         }
     </tbody>
@@ -32,11 +32,15 @@
                 result = []
 
                 // get closest td
-                $("[name='order_but']").closest('tr').find('td').each(function () {
-                    var textval = $(this).text(); // this will be the text of each <td>
-                    result.push(textval);
+//                 $("[name='order_but']").closest('tr').find('td').each(function () {
+//                     var textval = $(this).text(); // this will be the text of each <td>
+//                     result.push(textval);
+//                 });
+             var $row = $(this).closest("tr");    // Find the row
+                var $tds = $row.find("td");
+                $.each($tds, function () {
+                    result.push($(this).text());
                 });
-
                 // send json
 
                 model = {
