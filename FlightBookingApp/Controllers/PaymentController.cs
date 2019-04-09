@@ -6,13 +6,19 @@ using System.Data.SqlClient;
 using System.Web.Mvc;
 
 namespace FlightBookingApp.Controllers
-{ 
+{
     public class PaymentController : Controller
     {
         public String connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["FlightBookingEntity"].ConnectionString;
 
         // GET: Payment
         public JsonResult Index1(flight f)
+        {
+            if (Session["username"] == null)
+            {
+                return Json(new { status = false });
+            }
+            else
             {
                 Hashtable orderdetails = new Hashtable();
                 orderdetails.Add("flight_id", f.flight_id);
@@ -26,23 +32,27 @@ namespace FlightBookingApp.Controllers
                 orderdetails.Add("flight_timing_to", f.flight_timing_to);
                 orderdetails.Add("class_type", "economy"); // or first
                 orderdetails.Add("cost", f.cost);
-                orderdetails.Add("qty", 1);
-                orderdetails.Add("Totalcost", f.cost*1);
+                System.Diagnostics.Debug.WriteLine("qty is ");
+                System.Diagnostics.Debug.WriteLine(Session["qty"]);
+                orderdetails.Add("qty", Session["qty"]);
+                // orderdetails.Add("Totalcost", f.cost * ((int)Session["qty"]));
+                orderdetails.Add("Totalcost", f.cost * Int32.Parse((String)Session["qty"]));
 
-               
+
 
                 List<Hashtable> orders = new List<Hashtable>();
                 orders.Add(orderdetails);
                 //orders.Add(orderdetails1);
-                TempData["flight_details"] =  orders;
+                TempData["flight_details"] = orders;
 
                 return Json(new { status = true });
-                //return View("Index");
             }
+            //return View("Index");
+        }
 
         public ActionResult Index()
         {
-         
+
             return View();
 
         }
@@ -52,7 +62,7 @@ namespace FlightBookingApp.Controllers
         {
             //p.passenger_id = (int)Session["username"];
             p.passenger_id = 1;
-            System.Diagnostics.Debug.WriteLine("passenger id is "+p.passenger_id);
+            System.Diagnostics.Debug.WriteLine("passenger id is " + p.passenger_id);
             System.Diagnostics.Debug.WriteLine(p.GetType());
             SqlConnection sqlConnection1 = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand();
@@ -71,16 +81,16 @@ namespace FlightBookingApp.Controllers
                 //cmd.ExecuteNonQuery();
                 //int id = (int)cmd.ExecuteScalar();
                 //System.Diagnostics.Debug.WriteLine(cmd.ExecuteScalar());
-                JsonResult a= Json( new {status = true, pass_id = cmd.ExecuteScalar() });
-                        
+                JsonResult a = Json(new { status = true, pass_id = cmd.ExecuteScalar() });
+
                 sqlConnection1.Close();
                 return a;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 sqlConnection1.Close();
                 System.Diagnostics.Debug.WriteLine(e.Message);
-                return Json( new {status = false});
+                return Json(new { status = false });
             }
         }
 
@@ -95,14 +105,14 @@ namespace FlightBookingApp.Controllers
             SqlConnection sqlConnection1 = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
-                
+
             string sqlPattern = "INSERT into booking_details (customer_id, flight_id, payment, qty, status, passenger_id) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}'); SELECT SCOPE_IDENTITY()";
-            cmd.CommandText = String.Format(sqlPattern, bd.customer_id, bd.flight_id, bd.payment, bd.qty, "SUCCESS",bd.passenger_id);
+            cmd.CommandText = String.Format(sqlPattern, bd.customer_id, bd.flight_id, bd.payment, bd.qty, "SUCCESS", bd.passenger_id);
             cmd.Connection = sqlConnection1;
             System.Diagnostics.Debug.WriteLine(cmd.CommandText);
             sqlConnection1.Open();
             int a = cmd.ExecuteNonQuery();
-            if (a>0)
+            if (a > 0)
             {
                 sqlConnection1.Close();
                 return Json(new { status = true });

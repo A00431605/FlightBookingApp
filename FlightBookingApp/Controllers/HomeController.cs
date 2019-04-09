@@ -60,12 +60,7 @@ namespace FlightBookingApp.Controllers
             }
         }
 
- public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
         public ActionResult FAQ()
         {
             return View();

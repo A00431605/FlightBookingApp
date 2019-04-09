@@ -9,13 +9,13 @@ body, td, th {
     color: #333;    
 }
 
-body {
+body {  
     background-image: url('../images/giphy (3).gif');
-	background-size:cover;
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
+    background-size: cover;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
 }
 
 .pagecontainer {
@@ -29,7 +29,8 @@ body {
     min-width: 100px;
 }
 
-.HomeBCKImg{
-    background-image: url(../images/BCK1.JPG);
-	background-size:cover;
+.HomeBCKImg {
+    background-image: url('../images/giphy (3).gif');
+    /*background-image: url(../images/BCK1.JPG);*/
+    background-size: cover;
 }

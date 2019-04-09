@@ -27,7 +27,8 @@ body {
     margin-top: 35px;
 }
 
-.HomeBCKImg{
-    background-image: url(../images/BCK1.JPG);
-	background-size:cover;
+.HomeBCKImg {
+   /*background-image: url(../images/BCK1.JPG);*/
+    background-image: url('../images/giphy (3).gif');
+    background-size: cover;
 }

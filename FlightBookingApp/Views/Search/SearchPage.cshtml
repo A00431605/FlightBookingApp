@@ -33,11 +33,6 @@
             $("button[name='order_but']").click(function () {
                 result = []
 
-                // get closest td
-//                 $("[name='order_but']").closest('tr').find('td').each(function () {
-//                     var textval = $(this).text(); // this will be the text of each <td>
-//                     result.push(textval);
-//                 });
              var $row = $(this).closest("tr");    // Find the row
                 var $tds = $row.find("td");
                 $.each($tds, function () {
@@ -73,7 +68,11 @@
                         if (data['status']) {
                             window.location = '@Url.Action("Index","Payment")';
                         }
+                        else {
+                            window.location='@Url.Action("Login","Home")';
+                        }
                     },
+                   
 
 
                 });
