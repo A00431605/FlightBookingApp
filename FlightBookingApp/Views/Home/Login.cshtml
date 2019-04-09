@@ -1,7 +1,193 @@
-﻿
+﻿@model FlightBookingApp.Models.customer_book
+
 @{
+    /**/
+
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+<style type="text/css">
 
+
+    .bs-example {
+        height: 220px;
+    }
+
+    .imgcontainer {
+        margin: 24px 0 12px 0;
+        position: relative;
+        padding-left: 380px;
+    }
+
+    img.avatar {
+        width: 40%;
+        border-radius: 50%;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+
+    .centerlook {
+        padding-left: 300px;
+        font-weight: bold;
+        width: 1000px;
+    }
+
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+
+    .error {
+        padding-left: 400px;
+        font-weight: bold;
+        width: 1000px;
+        color: red;
+    }
+
+    .loginbtn {
+        padding-left: 440px;
+    }
+
+    .checkbtn {
+        padding-left: 400px;
+    }
+
+    .forgotpassword {
+        padding-left: 390px;
+    }
+
+    .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+    }
+
+    .align {
+        padding-top: 10px;
+        padding-left: 150px;
+        width: 800px;
+    }
+
+    .box {
+        margin-bottom: 136px;
+        margin-top: -87px;
+    }
+    .box :hover{
+        background: linear-gradient(rgba(19,11,11,69),rgba(111,26,56,0));
+        color: white;
+    }
+    form:hover {
+        opacity: 0.8;
+        background: linear-gradient(rgba(19,11,11,69),rgba(111,26,56,0));
+        color: white;
+    }
+</style>
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+
+{
+
+    @Html.AntiForgeryToken()
+
+
+    <body style="display:table;height: 100%;width: 100%;">
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+        <form style="display:table;height: 100%;width: 100%;" class="box">
+            <div class="form-horizontal " padding:16px>
+                <font size="4">
+                    <div>
+                        <center>
+                            <h2><b>Login Form</b></h2>
+                        </center>
+                    </div>
+                    <div>
+                        <center>
+                            <font color="red" size="4">
+                                <label>@Html.DisplayFor(model => model.LoginErrorMessage)</label>
+                            </font>
+                        </center>
+                    </div>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group centerlook align">
+
+                        <b>@Html.LabelFor(model => model.customer_emailaddress, htmlAttributes: new { @class = "control-label col-md-2" })</b>
+
+                        <div class="control-label col-md-10">
+
+                            @Html.EditorFor(model => model.customer_emailaddress, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.ValidationMessageFor(model => model.customer_emailaddress, "", new { @class = "text-danger" })
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group centerlook align">
+
+                        <b>@Html.LabelFor(model => model.customer_password, htmlAttributes: new { @class = "control-label col-md-2" })</b>
+
+                        <div class="control-label col-md-10">
+
+                            @Html.EditorFor(model => model.customer_password, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.ValidationMessageFor(model => model.customer_password, "", new { @class = "text-danger" })
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="loginbtn">
+                        <input type="submit" value="Login" class="btn btn-primary" />
+                    </div>
+                    <br />
+
+                    <div class="checkbtn">
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> Remember me
+
+                        </label>
+
+                    </div>
+                    <div class="forgotpassword">
+                        <label>
+                            <li>@Html.ActionLink("Forgot Password?", "ForgotPasswordView", "Home")</li>
+
+                        </label>
+
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                </font>
+            </div>
+        </form>
+
+        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    </body>
+}

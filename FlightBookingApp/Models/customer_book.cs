@@ -9,34 +9,37 @@ namespace FlightBookingApp.Models
     public partial class customer_book
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int customer_id { get; set; }
 
         [StringLength(256)]
-        public string country { get; set; }
-
-        [StringLength(50)]
-        public string Gender { get; set; }
-
-        [StringLength(256)]
+        [Display(Name = "Full Name")]
+        [Required(ErrorMessage = "Name is required")]
         public string customer_name { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? birth_Date { get; set; }
-
+     
         [StringLength(256)]
-        public string customer_address { get; set; }
-
-        [StringLength(256)]
-        public string customer_phonenumber { get; set; }
-
-        [StringLength(256)]
+        [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Required(ErrorMessage = "Email Address is required")]
         public string customer_emailaddress { get; set; }
 
-        [StringLength(256)]
-        public string customer_postalcode { get; set; }
+        [StringLength(256, ErrorMessage = "Minimum 5 characters", MinimumLength = 5)]
+        [Display(Name = "Password")]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Password is required")] 
+        public string customer_password { get; set; }
+
 
         [StringLength(256)]
-        public string customer_password { get; set; }
+        [NotMapped]
+        [Display(Name = "Confirm Password")]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Confirm Password is required")]
+        [Compare("customer_password", ErrorMessage = "Password does not match")]
+        public string ConfirmPassword { get; set; }
+        
+        [NotMapped]
+        public String LoginErrorMessage { get; set; }
+
     }
 }
