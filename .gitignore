@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs
+FlightBookingApp/obj/
+FlightBookingApp/bin/
+/FlightBookingApp/Views/customer_book
+/packages
