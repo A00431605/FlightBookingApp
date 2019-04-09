@@ -5,6 +5,7 @@ namespace FlightBookingApp.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
 
     [Table("passenger")]
     public partial class passenger
@@ -36,5 +37,12 @@ namespace FlightBookingApp.Models
 
         [StringLength(50)]
         public string passenger_gender { get; set; }
+
+        [StringLength(100)]
+        [Required(ErrorMessage ="Name is required")]
+        public string passenger_name { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? passenger_expiry { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Airlines Reservation System";
+    
 
 }
 <script>
@@ -79,6 +80,7 @@
 
                 <div class="TextBCK" style="border:none;width:425px">
                     <span id="Title">DEPARTURE DATE</span>
+<<<<<<< HEAD
                     @Html.TextBoxFor(model => model.fromtime, new { @class = "datepicker", placeholder = "Enter Departure Date" })
                 </div>
 
@@ -101,6 +103,32 @@
                     </select>
 
                 </div>
+=======
+                  
+                    @Html.TextBoxFor(model =>model.fromtime, new { @class = "datepicker", @type = "date" })
+                </div>
+
+                <div class="TextBCK" style="border:none;width:350px">
+                    <span id="Title">ARRIVAL DATE</span>  &nbsp;&nbsp;
+                  
+                    @Html.TextBoxFor(model => model.totime, new { @class = "datepicker", @type = "date" })
+                </div>
+
+            </div>
+
+               <div class="MyRow">
+
+            <div class="TextBCK" style="border:none;width:425px">
+                <span id="Title">AIR LINE TYPE</span>
+                @*      @Html.DropDownListFor(model => model.airline_choice, new SelectList(Model.Airlines))*@
+                @*<div class="airline-select" style="width:200px;" id="airline_choice" name="airline_choice">*@
+                <select name="airline_choice">
+                    <option value="-1">---Select--</option>
+                    <option value="WestJet Airlines">WestJet Airlines</option>
+                    <option value="Air Canada">Air Canada</option>
+                    <option value="JetBlue Airways">JetBlue Airways</option>
+                </select>
+>>>>>>> 8263c15208cd8e20ee57168ac48f7bdc3fe4f6ce
 
                 <div class="TextBCK" style="border:none;width:350px">
                     <span id="Title">PRICE RANGE</span>  &nbsp;&nbsp;

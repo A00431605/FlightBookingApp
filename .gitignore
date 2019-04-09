@@ -6,3 +6,5 @@
 FlightBookingApp/obj/
 FlightBookingApp/bin/
 packages/
+/FlightBookingApp/Views/customer_book
+/packages
