@@ -136,58 +136,150 @@
     }
 }
 
-<div class="payment">
-<h2>Payment Page</h2>
-    Amount of CAD @total will be deducted from your card.
-    <form id="form1" method="post" action="/Payment/PaymentConfirmation" enctype="application/x-www-form-urlencoded">
-        @Html.ValidationSummary(true)
-        <div>
-            <label for="cc">Credit Card No</label>
-        </div>
-        <div>
-            @Html.TextBoxFor(Tuple => Tuple.Item1.cc, new { @class = "form-control" })
-        </div>
+            <div class="payment">
+                <h2>Payment Page</h2>
+                Amount of CAD @total will be deducted from your card.
+                @using (Html.BeginForm("PaymentConfirmation", "Payment", FormMethod.Post, new { @id = "payment_details"}))
+                {
+                <centre>
+                    <table>
+                        <caption>@Html.ValidationSummary(true)</caption>
+                        <tr>
+                            <td><label for="cc">Credit Card No</label></td>
+                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.cc, new { @class = "form-control" })</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><label for="NameOnCC">Name on credit card</label></td>
+                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.NameOnCC, new { @class = "form-control" })</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><label for="cardType">Credit card type</label></td>
+                            <td>
+                                <div>
+                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "Visa", new { @id = "Visa", @style = "display:inline-block!important" })
+                                    @Html.Label("Visa")
 
-        <div>
-            <label for="NameOnCC">Name on credit card</label>
-        </div>
-        <div>
-            @Html.TextBoxFor(Tuple => Tuple.Item1.NameOnCC, new { @class = "form-control" })
-        </div>
+                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "MasterCard", new { @id = "MasterCard", @style = "display:inline-block!important" })
+                                    @Html.Label("Master Card", new { @for = "MasterCard" })
 
-        <div>
-            <label for="cardType">Credit card type</label>
-        </div>
-        <div>
-            <div>
-                @Html.Label("Visa")
-                @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "Visa", new { @id = "Visa" })
+                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "AmericanExpress", new { @id = "AmericanExpress", @style = "display:inline-block!important" })
+                                    @Html.Label("American Express", new { @for = "AmericanExpress" })
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
 
-                @Html.Label("Master Card", new { @for = "MasterCard" })
-                @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "MasterCard", new { @id = "MasterCard" })
-
-                @Html.Label("American Express", new { @for = "AmericanExpress" })
-                @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "AmericanExpress", new { @id = "AmericanExpress" })
-
+                        <tr>
+                            <td><label for="expDate">Expiration date</label></td>
+                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.expDate, new { type = "date", @class = "form-control" })</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="submit" value="Submit" class="form-control" onclick="payment_details()" /></td>
+                        </tr>
+                    </table>
+                    </centre>
+                }
             </div>
-        </div>
-
-        <div>
-            <label for="expDate">Expiration date</label>
-        </div>
-        <div>
-            @Html.TextBoxFor(Tuple => Tuple.Item1.expDate, new { type = "date"})
-        </div>
-
-        <div>
-            <input type="submit" value="Submit" />
-        </div>
-    </form>
-</div>
 
 <script>
+
+    var passenger_infoIDs = [];
+    function payment_details() {
+        console.log("#payment_details invoked for validation");
+
+        $.validator.addMethod('creditcard', function (value) {
+            if (value.length == 16 && (value.toString().slice(0, 2) == "51" || value.toString().slice(0, 2) == "52"
+                || value.toString().slice(0, 2) == "53" || value.toString().slice(0, 2) == "54" || value.toString().slice(0, 2) == "55")) {
+                $("#MasterCard").trigger("click");
+                return true;
+            } else if (value.length == 16 && value.toString().slice(0, 1) == "4") {
+                $("#Visa").trigger("click");
+                return true;
+            } else if (value.length == 15 && (value.toString().slice(0, 2) == "34" || value.toString().slice(0, 2) == "37")) {
+                $("#AmericanExpress").trigger("click");
+                return true;
+            } else {
+                return false;
+            }
+            
+        }, 'Please enter valid credit card number.');
+
+        $.validator.addMethod('regexStringcard', function (value) {
+            target = ";:!#$%^*+?\/<>1234567890";
+            for (var i = 0; i < target.length; i++) {
+                if (value.indexOf(target.charAt(i)) != -1) {
+                    return false
+                }
+            }
+            return true;
+        }, 'Please enter valid name for credit card');
+
+        $.validator.addMethod('CCDate', function (value) {
+            today = new Date().toJSON().slice(0, 10);
+            if (value < today) {
+                return false;
+            } else {
+                return true;
+            }
+        }, 'Please enter valid expiry date of credit card.');
+
+        $("#payment_details").validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent("td").next("td"));
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                    url: $("#payment_details").attr('action'), // the url where we want to POST
+                    data: {
+                        customer_id: @customer_id,
+                        flight_id: @flight_id,
+                        payment: @total,
+                        qty: @qty,
+                        passenger_id: passenger_infoIDs.toString()
+                    },
+                    dataType: 'json', // what type of data do we expect back from the server
+                    encode: true
+                }).done(function (data) {
+                    if (data['status']) {
+                        $("#payment_details").hide();
+                        $(".payment").append("<h3>Order placed successfully</h3>");
+                    }
+                });
+            },
+            rules: {
+                'Item1.cc': {
+                    required: true,
+                    creditcard: true
+                },
+                'Item1.NameOnCC': {
+                    required: true,
+                    regexStringcard: true
+                },
+                'Item1.expDate': {
+                    required: true,
+                    CCDate: true
+                }
+            },
+            messages: {
+                'Item1.cc': {
+                    required: "Credit card number is required"
+                },
+                'Item1.NameOnCc': {
+                    required: "Name on Credit card is required"
+                },
+                'Item1.expDate': {
+                    required: "Expiry date is required"
+                }
+            }
+        });
+    }
+
     $(".payment").hide();
-    var passenger_infoIDs=[];
     function passenger_details(i) {
         console.log("#passenger_details" + i + " invoked for validation");
 
@@ -265,12 +357,10 @@
                         dataType: 'json', // what type of data do we expect back from the server
                         encode: true
                     }).done(function (data) {
-                        console.log(data);
-                        //var resp = JSON.parse(data);
                         var resp = data;
-                        console.log(resp);
-                        if (resp['status'] == 'true') {
+                        if (resp['status']) {
                             passenger_infoIDs.push(resp['pass_id']);
+                            //alert(passenger_infoIDs);
                             $("#passenger_details" + i + " div.ValidMesg").html("Details of Passenger " + i + " inserted successfully.");
                             $("#passenger_details" + i + " table").hide();
                             checkAndShowPayment();

@@ -26,8 +26,8 @@ namespace FlightBookingApp.Controllers
                 orderdetails.Add("flight_timing_to", "14:00");
                 orderdetails.Add("class_type", "economy"); // or first
                 orderdetails.Add("cost", 300);
-                orderdetails.Add("qty", 2);
-                orderdetails.Add("Totalcost", 300*2);
+                orderdetails.Add("qty", 1);
+                orderdetails.Add("Totalcost", 300*1);
 
                 //orderdetails.Add("firstclass_cost","600");
 
@@ -90,56 +90,63 @@ namespace FlightBookingApp.Controllers
             p.passenger_id = 1;
             System.Diagnostics.Debug.WriteLine("passenger id is "+p.passenger_id);
             System.Diagnostics.Debug.WriteLine(p.GetType());
-             SqlConnection sqlConnection1 = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = System.Data.CommandType.Text;
+            SqlConnection sqlConnection1 = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
 
-                string sqlPattern = "INSERT into passenger ([passport_number], [passenger_address], [passenger_postalCode], [passenger_Country]," +
-                    "[passenger_phoneNumber],[passenger_emailAddress],[passenger_DOB],[passenger_gender],[passenger_name],[passport_expiry])" +
-                    " VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'); SELECT SCOPE_IDENTITY()";
-                cmd.CommandText = String.Format(sqlPattern, p.passport_number, p.passenger_address, p.passenger_postalCode, p.passenger_Country,
-                    p.passenger_phoneNumber, p.passenger_emailAddress, p.passenger_DOB, p.passenger_gender, p.passenger_name, p.passenger_expiry);
-                cmd.Connection = sqlConnection1;
-                System.Diagnostics.Debug.WriteLine(cmd.CommandText);
-                sqlConnection1.Open();
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        //int id = (int)cmd.ExecuteScalar();
-                        System.Diagnostics.Debug.WriteLine(cmd.ExecuteScalar());
-                        return Json( new {status = true, pass_id = cmd.ExecuteScalar() });
-                    }
-                    catch(Exception e)
-                    {
-                        System.Diagnostics.Debug.WriteLine(e.Message);
-                        return Json( new {status = false});
-                    }
+            string sqlPattern = "INSERT into passenger ([passport_number], [passenger_address], [passenger_postalCode], [passenger_Country]," +
+                "[passenger_phoneNumber],[passenger_emailAddress],[passenger_DOB],[passenger_gender],[passenger_name],[passport_expiry])" +
+                " VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'); SELECT SCOPE_IDENTITY()";
+            cmd.CommandText = String.Format(sqlPattern, p.passport_number, p.passenger_address, p.passenger_postalCode, p.passenger_Country,
+                p.passenger_phoneNumber, p.passenger_emailAddress, p.passenger_DOB, p.passenger_gender, p.passenger_name, p.passenger_expiry);
+            cmd.Connection = sqlConnection1;
+            System.Diagnostics.Debug.WriteLine(cmd.CommandText);
+            sqlConnection1.Open();
+            try
+            {
+                //cmd.ExecuteNonQuery();
+                //int id = (int)cmd.ExecuteScalar();
+                //System.Diagnostics.Debug.WriteLine(cmd.ExecuteScalar());
+                JsonResult a= Json( new {status = true, pass_id = cmd.ExecuteScalar() });
+                        
                 sqlConnection1.Close();
+                return a;
+            }
+            catch(Exception e)
+            {
+                sqlConnection1.Close();
+                System.Diagnostics.Debug.WriteLine(e.Message);
+                return Json( new {status = false});
+            }
         }
 
 
         [HttpPost]
         public ActionResult PaymentConfirmation(booking_details bd)
         {
-            if (ModelState.IsValid)
-            {
-                // Reference : https://docs.microsoft.com/en-us/visualstudio/data-tools/insert-new-records-into-a-database?view=vs-2019
-                //connetionString = "data source = DESKTOP - 5TD9BOD; initial catalog = FlightBookingApp; integrated security = True; MultipleActiveResultSets = True; App = EntityFramework";
+            // Reference : https://docs.microsoft.com/en-us/visualstudio/data-tools/insert-new-records-into-a-database?view=vs-2019
+            //connetionString = "data source = DESKTOP - 5TD9BOD; initial catalog = FlightBookingApp; integrated security = True; MultipleActiveResultSets = True; App = EntityFramework";
 
-                //System.Data.SqlClient.SqlConnection sqlConnection1 = new System.Data.SqlClient.SqlConnection(connetionString);
-                SqlConnection sqlConnection1 = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = System.Data.CommandType.Text;
+            //System.Data.SqlClient.SqlConnection sqlConnection1 = new System.Data.SqlClient.SqlConnection(connetionString);
+            SqlConnection sqlConnection1 = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.Text;
                 
-                string sqlPattern = "INSERT into booking_details (customer_id, flight_id, payment, qty, status) VALUES ({0},{1},{2},{3},{4})";
-                cmd.CommandText = String.Format(sqlPattern, bd.customer_id, bd.flight_id, bd.payment, bd.qty, bd.status);
-                cmd.Connection = sqlConnection1;
-                System.Diagnostics.Debug.WriteLine(cmd.CommandText);
-                sqlConnection1.Open();
-                cmd.ExecuteNonQuery();
+            string sqlPattern = "INSERT into booking_details (customer_id, flight_id, payment, qty, status, passenger_id) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}'); SELECT SCOPE_IDENTITY()";
+            cmd.CommandText = String.Format(sqlPattern, bd.customer_id, bd.flight_id, bd.payment, bd.qty, "SUCCESS",bd.passenger_id);
+            cmd.Connection = sqlConnection1;
+            System.Diagnostics.Debug.WriteLine(cmd.CommandText);
+            sqlConnection1.Open();
+            int a = cmd.ExecuteNonQuery();
+            if (a>0)
+            {
                 sqlConnection1.Close();
+                return Json(new { status = true });
             }
-            return View(bd);
+            else
+            {
+                return Json(new { status = false });
+            }
         }
     }
 }
