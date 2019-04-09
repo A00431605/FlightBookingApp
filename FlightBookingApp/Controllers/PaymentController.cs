@@ -32,11 +32,11 @@ namespace FlightBookingApp.Controllers
                 orderdetails.Add("flight_timing_to", f.flight_timing_to);
                 orderdetails.Add("class_type", "economy"); // or first
                 orderdetails.Add("cost", f.cost);
-                System.Diagnostics.Debug.WriteLine("qty is ");
-                System.Diagnostics.Debug.WriteLine(Session["qty"]);
-                orderdetails.Add("qty", Session["qty"]);
+                //System.Diagnostics.Debug.WriteLine("qty is ");
+                //System.Diagnostics.Debug.WriteLine(Session["qty"]);
+                orderdetails.Add("qty", (int)Session["qty"]);
                 // orderdetails.Add("Totalcost", f.cost * ((int)Session["qty"]));
-                orderdetails.Add("Totalcost", f.cost * Int32.Parse((String)Session["qty"]));
+                orderdetails.Add("Totalcost", f.cost * (int)Session["qty"]);
 
 
 
@@ -61,7 +61,7 @@ namespace FlightBookingApp.Controllers
         public JsonResult PassengerInsert(passenger p)
         {
             //p.passenger_id = (int)Session["username"];
-            p.passenger_id = 1;
+            p.passenger_id = (int)Session["userId"];
             System.Diagnostics.Debug.WriteLine("passenger id is " + p.passenger_id);
             System.Diagnostics.Debug.WriteLine(p.GetType());
             SqlConnection sqlConnection1 = new SqlConnection(connectionString);
