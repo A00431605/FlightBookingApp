@@ -83,5 +83,14 @@ namespace FlightBookingApp.Controllers
             Session["username"] = null;
             return RedirectToAction("Index");
         }
+
+        public JsonResult getCityDetails(string city)
+        {
+            FlightBookingEntity db = new FlightBookingEntity();
+
+            var country = db.airports.Where(x => x.city == city).Select(x => x.airport_country).FirstOrDefault();
+            var cities = db.airports.Where(x => x.airport_country == country).Select(x => x.airport_short_code).ToList();
+            return Json(cities);
+        }
     } 
 }

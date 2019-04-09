@@ -81,7 +81,7 @@ namespace FlightBookingApp.Controllers
                     totime = fromtime;
                 }
 
-                
+                Session["qty"] = search.people_count;
 
                 String sqlPattern = @"select C.*,D.airline_name from(SELECT A.* FROM flight as A  where A.flight_from = '{0}' and A.flight_to = '{1}'and A.operating_date_from = '{2}' and A.operating_date_to='{3}') as C join airline as D on C.airline_id=D.airline_id where D.airline_name={4} and C.cost between {5} and {6} and (C.total_seats-C.seats_booked>={7}) order by C.flight_timing_from;";
                 String sqlSentence = String.Format(sqlPattern, from, to, fromtime, totime, airline_choice, start_price, end_price, people_count);
@@ -101,5 +101,7 @@ namespace FlightBookingApp.Controllers
         {
             return View();
         }
+
+        
     }
 }
