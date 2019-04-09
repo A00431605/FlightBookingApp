@@ -1,4 +1,5 @@
 
+
 ﻿using FlightBookingApp.Models;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,22 @@ namespace FlightBookingApp.Controllers
 
             }
         }
+
+ public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult FAQ()
+        {
+            return View();
+        }
+        public ActionResult AboutUS()
+        {
+            return View();
+        }
+
 
         [HttpGet]
 
@@ -120,4 +137,5 @@ namespace FlightBookingApp.Controllers
 
 
     } 
+
 }
