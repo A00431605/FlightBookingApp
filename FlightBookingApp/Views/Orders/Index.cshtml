@@ -4,12 +4,11 @@
 @{
     ViewBag.Title = "Index";
 }
-@*@using (Html.BeginForm("OrderCancel", "Orders", FormMethod.Post))
-    {*@
 <h2>My orders</h2>
 <table class="table table-striped table-bordered table-hover table-full-width dataTable" id="order">
     <tbody>
         <tr>
+            <th>Booking Id</th>
             <th> Flight Number </th>
             <th>Flight From </th>
             <th> Flight To </th>
@@ -27,20 +26,46 @@
                 {
                     <td>@row[col.ColumnName]</td>
                 }
-                <td><button type="button" id="btnclick" class="btn btn-primary">Cancel</button></td>
+
+                <td>
+                    @if (row[7].Equals("In Progress") || row[7].Equals("Booked"))
+                    {
+
+                        <button type="button" class="btn btn-primary" name="order_but" value="@row[0]">cancel</button>
+
+                    }
+                </td>
+
             </tr>
         }
     </tbody>
 </table>
+@section Scripts{
+    <script>
+    $(document).ready(function () {
+        var result=[]
+        $("button[name='order_but']").click(function () {
+            result = []
+            var $row = $(this).closest("tr");    // Find the row
+                var $tds = $row.find("td");
+                $.each($tds, function () {
+                    result.push($(this).text());
+                });
+            $.ajax({
+               url: '@Url.Action("updateCancel", "Orders")',
+               type: 'post',
+               data: { 'bookingid': result[0] },
+               dataType: 'json',
+               success: function (response) {
 
-<script>
-        $(document).ready(function () {
-            debugger;
-            $('#order tbody').on('click', 'td', function () {
-                debugger;
-                var data = table.row($(this).parents('tr')).data();
-                alert(data[0] + "'s salary is: " + data[5]);
+                   var url ='@Url.Action("OrderCancel", "Orders")'
+                   window.location = url;
+                    },
+                });
             });
+
         });
 
-</script>
+
+    </script>
+}
