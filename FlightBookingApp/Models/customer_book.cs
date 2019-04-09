@@ -12,27 +12,32 @@ namespace FlightBookingApp.Models
         public int customer_id { get; set; }
 
         [StringLength(256)]
+        [Display(Name = "Full Name")]
+        [Required(ErrorMessage = "Name is required")]
         public string customer_name { get; set; }
 
      
         [StringLength(256)]
-        [Display(Name = "User Name")]
-        [Required(ErrorMessage = "User Name is required")]
+        [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Required(ErrorMessage = "Email Address is required")]
         public string customer_emailaddress { get; set; }
 
-        [StringLength(256)]
+        [StringLength(256, ErrorMessage = "Minimum 5 characters", MinimumLength = 5)]
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Password is required")] 
-            public string customer_password { get; set; }
+        public string customer_password { get; set; }
+
+
         [StringLength(256)]
         [NotMapped]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirm Password")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Confirm Password is required")]
         [Compare("customer_password", ErrorMessage = "Password does not match")]
         public string ConfirmPassword { get; set; }
-
+        
         [NotMapped]
         public String LoginErrorMessage { get; set; }
 

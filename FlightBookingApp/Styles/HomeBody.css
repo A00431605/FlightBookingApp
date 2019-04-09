@@ -10,12 +10,12 @@ body, td, th {
 }
 
 body {
-    background-image: url(../images/BCK1.JPG);
-	background-size:auto;
+    background-image: url('../images/giphy (3).gif');
+	background-size:cover;
 	margin-left: 0px;
 	margin-top: 0px;
 	margin-right: 0px;
-	margin-bottom: 60px;
+	margin-bottom: 0px;
 }
 
 .pagecontainer {
@@ -26,6 +26,7 @@ body {
 .pagecontainer_Home {
     text-align: left;
     margin-top: 35px;
+    min-width: 100px;
 }
 
 .HomeBCKImg{
