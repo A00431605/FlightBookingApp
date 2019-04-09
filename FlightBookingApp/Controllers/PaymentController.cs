@@ -14,6 +14,12 @@ namespace FlightBookingApp.Controllers
         // GET: Payment
         public ActionResult Index()
         {
+            if (Session["username"] == null)
+            {
+                // Response.Redirect("~/Home/Login");
+                return RedirectToAction("Login", "Home");
+            }
+
             Hashtable orderdetails = new Hashtable();
             orderdetails.Add("flight_id", 1);
             orderdetails.Add("airline_name", "WestJet Airlines");
@@ -27,7 +33,7 @@ namespace FlightBookingApp.Controllers
             orderdetails.Add("class_type", "economy"); // or first
             orderdetails.Add("cost", 300);
             orderdetails.Add("qty", 2);
-            orderdetails.Add("Totalcost", 300*2);
+            orderdetails.Add("Totalcost", 300 * 2);
 
             //orderdetails.Add("firstclass_cost","600");
 
@@ -52,14 +58,16 @@ namespace FlightBookingApp.Controllers
             List<Hashtable> orders = new List<Hashtable>();
             orders.Add(orderdetails);
             //orders.Add(orderdetails1);
-            TempData["flight_details"] =  orders;
-            
+            TempData["flight_details"] = orders;
+
             return View();
         }
 
         [HttpPost]
         public ActionResult Index(flight f)
         {
+            System.Diagnostics.Debug.WriteLine("-------------------");
+            System.Diagnostics.Debug.WriteLine(f.flight_name);
             Hashtable orderdetails = new Hashtable();
             // add flight_name
             orderdetails.Add("flight_id", f.flight_id);
@@ -81,6 +89,7 @@ namespace FlightBookingApp.Controllers
             TempData["flight_details"] = orders;
 
             return View();
+
         }
 
         [HttpPost]
