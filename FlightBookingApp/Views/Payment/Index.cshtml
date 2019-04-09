@@ -46,7 +46,7 @@
             <td>@eachFlight["qty"]</td>
             <td>@eachFlight["Totalcost"]</td>
             @{total = (int)eachFlight["Totalcost"];}
-            @{qty = (int)eachFlight["qty"];}
+            @{qty = Int32.Parse((String)eachFlight["qty"]);}
             @{flight_id = (int)eachFlight["flight_id"];}
         </tr>
                 }
