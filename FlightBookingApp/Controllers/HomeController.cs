@@ -49,7 +49,13 @@ namespace FlightBookingApp.Controllers
                     customerModel.LoginErrorMessage = "Please enter valid Username or Password";
                     return View("Login",customerModel); 
                 }
+
+
+                Session["username"] = obj.customer_name;
+                Session["userId"] = obj.customer_id;
+        
                 return RedirectToAction("Index");
+
             }
         }
 
@@ -104,6 +110,12 @@ namespace FlightBookingApp.Controllers
            
          
                 return View("signUp",new customer_book());
+        } 
+
+        public ActionResult signout()
+        {
+            Session["username"] = null;
+            return RedirectToAction("Index");
         }
 
 
