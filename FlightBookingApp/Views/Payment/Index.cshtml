@@ -108,7 +108,7 @@
                     </tr>
                     <tr>
                         <td>@Html.Label("Passenger Email")</td>
-                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_emailAddress, new { @Type = "email", @placeholder = "Passenger Email", @class = "form-control" })</td>
+                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_emailAddress, new { @Type = "email", @placeholder = "Passenger Email", @class = "form-control"})</td>
                         <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passenger_emailAddress)</td>
                     </tr>
                     <tr>
@@ -158,13 +158,13 @@
                             <td><label for="cardType">Credit card type</label></td>
                             <td>
                                 <div>
-                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "Visa", new { @id = "Visa", @style = "display:inline-block!important" })
+                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "Visa", new { @id = "Visa", @style = "display:inline-block!important", @disabled = "disabled" })
                                     @Html.Label("Visa")
 
-                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "MasterCard", new { @id = "MasterCard", @style = "display:inline-block!important" })
+                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "MasterCard", new { @id = "MasterCard", @style = "display:inline-block!important", @disabled = "disabled" })
                                     @Html.Label("Master Card", new { @for = "MasterCard" })
 
-                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "AmericanExpress", new { @id = "AmericanExpress", @style = "display:inline-block!important" })
+                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "AmericanExpress", new { @id = "AmericanExpress", @style = "display:inline-block!important", @disabled = "disabled" })
                                     @Html.Label("American Express", new { @for = "AmericanExpress" })
                                 </div>
                             </td>
@@ -173,7 +173,7 @@
 
                         <tr>
                             <td><label for="expDate">Expiration date</label></td>
-                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.expDate, new { type = "date", @class = "form-control" })</td>
+                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.expDate, new { type = "text", @placeholder="MM/YYYY",@class = "form-control" })</td>
                             <td></td>
                         </tr>
                         <tr>
@@ -193,13 +193,13 @@
         $.validator.addMethod('creditcard', function (value) {
             if (value.length == 16 && (value.toString().slice(0, 2) == "51" || value.toString().slice(0, 2) == "52"
                 || value.toString().slice(0, 2) == "53" || value.toString().slice(0, 2) == "54" || value.toString().slice(0, 2) == "55")) {
-                $("#MasterCard").trigger("click");
+                $("#MasterCard").prop('checked', true);
                 return true;
             } else if (value.length == 16 && value.toString().slice(0, 1) == "4") {
-                $("#Visa").trigger("click");
+                $("#Visa").prop('checked', true);
                 return true;
             } else if (value.length == 15 && (value.toString().slice(0, 2) == "34" || value.toString().slice(0, 2) == "37")) {
-                $("#AmericanExpress").trigger("click");
+                $("#AmericanExpress").prop('checked', true);
                 return true;
             } else {
                 return false;
@@ -218,13 +218,40 @@
         }, 'Please enter valid name for credit card');
 
         $.validator.addMethod('CCDate', function (value) {
-            today = new Date().toJSON().slice(0, 10);
-            if (value < today) {
-                return false;
-            } else {
+            //today = new Date().toJSON().slice(0, 10);
+            if (value.match("^((0[1-9]|1[0-2])/(201[6-9]|202[0-9]|203[0-1]))")) {
                 return true;
+            } else {
+                return false;
             }
         }, 'Please enter valid expiry date of credit card.');
+
+        //$.validator.addMethod('radioValid', function (value1) {
+        //    console.log(value1);
+        //    value = $("#Item1_cc").val();
+        //    if (value1 == "Visa") {
+        //        if (value.length == 16 && value.toString().slice(0, 1) == "4") {
+        //            return true;
+        //        } else {
+        //            return false;
+        //        }
+        //    } else if (value1 == "MasterCard") {
+        //        if (value.length == 16 && (value.toString().slice(0, 2) == "51" || value.toString().slice(0, 2) == "52"
+        //            || value.toString().slice(0, 2) == "53" || value.toString().slice(0, 2) == "54" || value.toString().slice(0, 2) == "55")) {
+        //            return true;
+        //        } else {
+        //            return false;
+        //        }
+        //    } else if (value1 == "AmericanExpress") {
+        //        if (value.length == 15 && (value.toString().slice(0, 2) == "34" || value.toString().slice(0, 2) == "37")) {
+        //            return true;
+        //        } else {
+        //            return false;
+        //        }
+        //    } else {
+        //        return false;
+        //    }
+        //}, 'Please enter valid card number for '+value1+' card');
 
         $("#payment_details").validate({
             errorPlacement: function (error, element) {
@@ -264,6 +291,9 @@
                     required: true,
                     CCDate: true
                 }
+                //'Item1.cardType': {
+                //    required: true
+                //}
             },
             messages: {
                 'Item1.cc': {
@@ -275,6 +305,9 @@
                 'Item1.expDate': {
                     required: "Expiry date is required"
                 }
+                //'Item1.cardType': {
+                //    required: "Please select appropriate card type."
+                //}
             }
         });
     }
