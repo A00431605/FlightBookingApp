@@ -5,6 +5,38 @@
     
 
 }
+<script>
+        
+        .slideshow - container {
+            max - width: 1000px;
+            position: relative;
+            margin: auto;
+        }
+                .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50 %;
+            width: auto;
+            padding: 16px;
+            margin - top: -22px;
+            color: white;
+            font - weight: bold;
+            font - size: 18px;
+            transition: 0.6s ease;
+            border - radius: 0 3px 3px 0;
+            user - select: none;
+        }
+            .next {
+            right: 0;
+            border - radius: 3px 0 0 3px;
+        }
+
+            /* On hover, add a grey background color */
+            .prev: hover, .next: hover {
+            background - color: #f1f1f1;
+            color: black;
+        }
+</script>
 <script src="@Url.Content("~/Scripts/index.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Content/themes/base/minified/jquery-ui.min.css")" rel="stylesheet" />
 
@@ -13,41 +45,65 @@
     @Html.AntiForgeryToken()
 
 
-<div id="PnlHomePage">
-    <div id="HomePageTitle">SEARCH FLIGHTS</div>
-    <div id="PnlHomeSearch">
-        <div id="LblMsg"></div><br />
-        <div class="MyRow">
-            <input type="radio" name="TripType" id="TripTypeSingle" value="SINGLE" autocomplete="off" class="HomeRadio" />
-            <label for="TripTypeSingle"><span></span>ONE WAY</label>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="TripType" id="TripTypeRound" value="ROUND" autocomplete="off" checked class="HomeRadio" />
-            <label for="TripTypeRound"><span></span>ROUND TRIP</label>
-        </div>
+    <div id="PnlHomePage">
+        <div id="HomePageTitle">SEARCH FLIGHTS</div>
+        <div id="PnlHomeSearch">
+            <div id="LblMsg"></div><br />
+            <div class="MyRow">
+                <input type="radio" name="TripType" id="TripTypeSingle" value="SINGLE" autocomplete="off" class="HomeRadio" />
+                <label for="TripTypeSingle"><span></span>ONE WAY</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="TripType" id="TripTypeRound" value="ROUND" autocomplete="off" checked class="HomeRadio" />
+                <label for="TripTypeRound"><span></span>ROUND TRIP</label>
+            </div>
 
-        <div class="MyRow">
-            <div class="TextBCK">
-                <span id="Title">DEPARTURE</span>
-                @Html.EditorFor(model => model.from)
-            </div>
-            <div class="flightdirection" id="FlightDir">
-                <img id="ImgFlightDir" src="~/images/ROUND.PNG" style="height:35px" />
-            </div>
-            <div style="float:right;">
+            <div class="MyRow">
                 <div class="TextBCK">
-                    <span id="Title">ARRIVAL</span>
-                    @Html.TextBoxFor(model => model.to)
+                    <span id="Title">DEPARTURE</span>
+                    @Html.EditorFor(model => model.from)
+                </div>
+                <div class="flightdirection" id="FlightDir">
+                    <img id="ImgFlightDir" src="~/images/ROUND.PNG" style="height:35px" />
+                </div>
+                <div style="float:right;">
+                    <div class="TextBCK">
+                        <span id="Title">ARRIVAL</span>
+                        @Html.TextBoxFor(model => model.to)
 
 
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <br /> <br />
-        <div class="MyRow">
+            <br /> <br />
+            <div class="MyRow">
 
 
                 <div class="TextBCK" style="border:none;width:425px">
                     <span id="Title">DEPARTURE DATE</span>
+<<<<<<< HEAD
+                    @Html.TextBoxFor(model => model.fromtime, new { @class = "datepicker", placeholder = "Enter Departure Date" })
+                </div>
+
+                <div class="TextBCK" style="border:none;width:350px">
+                    <span id="Title">ARRIVAL DATE</span>  &nbsp;&nbsp;
+                    @Html.TextBoxFor(model => model.totime, new { @class = "datepicker", placeholder = "Enter Arrival Date" })
+                </div>
+            </div>
+            <div class="MyRow">
+
+                <div class="TextBCK" style="border:none;width:425px">
+                    <span id="Title">AIR LINE TYPE</span>
+                    @*      @Html.DropDownListFor(model => model.airline_choice, new SelectList(Model.Airlines))*@
+                    @*<div class="airline-select" style="width:200px;" id="airline_choice" name="airline_choice">*@
+                    <select name="airline_choice">
+                        <option value="-1">---Select--</option>
+                        <option value="WestJet Airlines">WestJet Airlines</option>
+                        <option value="Air Canada">Air Canada</option>
+                        <option value="JetBlue Airways">JetBlue Airways</option>
+                    </select>
+
+                </div>
+=======
                   
                     @Html.TextBoxFor(model =>model.fromtime, new { @class = "datepicker", @type = "date" })
                 </div>
@@ -72,42 +128,58 @@
                     <option value="Air Canada">Air Canada</option>
                     <option value="JetBlue Airways">JetBlue Airways</option>
                 </select>
+>>>>>>> 8263c15208cd8e20ee57168ac48f7bdc3fe4f6ce
+
+                <div class="TextBCK" style="border:none;width:350px">
+                    <span id="Title">PRICE RANGE</span>  &nbsp;&nbsp;
+                    @*  <div class="price-range" style="width:200px;" id="price-range" name="price_range">*@
+                    <select name="price_range">
+                        <option value="-1">---Select--</option>
+                        <option value="0">0-300</option>
+                        <option value="1">300-500</option>
+                        <option value="2">500 upper </option>
+                    </select>
+                    @*</div>*@
+                    @*   @Html.TextBoxFor(model => model.price_range)*@
+                </div>
+            </div>
+
+
+            <div class="MyRow">
+                <div class="TextBCK" style="border:none;width:350px">
+                    <span id="Title">NUMBER OF PEOPLE (1-10) </span>  &nbsp;&nbsp;
+                    <input type="number" id="people_count" name="people_count"
+                           min="1" max="10">
+                </div>
 
             </div>
 
-            <div class="TextBCK" style="border:none;width:350px">
-                <span id="Title">PRICE RANGE</span>  &nbsp;&nbsp;
-                @*  <div class="price-range" style="width:200px;" id="price-range" name="price_range">*@
-                <select name="price_range">
-                    <option value="-1">---Select--</option>
-                    <option value="0">0-300</option>
-                    <option value="1">300-500</option>
-                    <option value="2">500 upper </option>
-                </select>
-                @*</div>*@
-                @*   @Html.TextBoxFor(model => model.price_range)*@
-            </div>
-        </div>
 
 
-        <div class="MyRow">
-            <div class="TextBCK" style="border:none;width:350px">
-                <span id="Title">NUMBER OF PEOPLE (1-10) </span>  &nbsp;&nbsp;
-                <input type="number" id="people_count" name="people_count"
-                       min="1" max="10">
+            <br /><br /><br />
+            <div class="MyRow">
+                <input type="submit" value="SERACH FLIGHTS" class="btn btn-default" />
             </div>
 
+            <div class="slideshow-container">
+                <div class="mySlides1">
+                    <img src="img_nature_wide.jpg" style="width:100%">
+                </div>
+
+                <div class="mySlides1">
+                    <img src="img_snow_wide.jpg" style="width:100%">
+                </div>
+
+                <div class="mySlides1">
+                    <img src="img_mountains_wide.jpg" style="width:100%">
+                </div>
+
+                <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+            </div>
+
         </div>
-
-
-
-        <br /><br /><br />
-        <div class="MyRow">
-            <input type="submit" value="SERACH FLIGHTS" class="btn btn-default" />
-        </div>
-
     </div>
-</div>
 }
 
 

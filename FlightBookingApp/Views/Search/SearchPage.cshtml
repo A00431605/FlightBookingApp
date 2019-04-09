@@ -63,14 +63,16 @@
                 };
 
                 $.ajax({
-                    url: '@Url.Action("Index","TestOrder")',
-                    type: 'post',
+                    url: '@Url.Action("Index1","Payment")',
+                    type: 'POST',
                     dataType: 'json',
                     data: JSON.stringify(model),
                     contentType: 'application/json',
 
                     success: function (data) {
-                        alert(success);
+                        if (data['status']) {
+                            window.location = '@Url.Action("Index","Payment")';
+                        }
                     },
 
 
