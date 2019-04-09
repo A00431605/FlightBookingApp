@@ -23,15 +23,15 @@
     <script type="text/javascript">
         window.HostPath='@Url.Content("~/")';
     </script>
-    <!-- App scripts -->
+
     @RenderSection("Scripts", false/*required*/)
-    @*<script src="@Url.Content("~/Scripts/app.js")" type="text/javascript"></script>*@
     <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
+
     <!-- Code to wire up your DatePicker -->
     <script type="text/javascript">
         $(function () {
-            $('#datepicker').datepicker();
+            $('.datepicker').datepicker();
         })
     </script>
 
@@ -48,25 +48,26 @@
             <div class="topbar">
                 @Html.ActionLink("Flight Booking App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 <div class="topmenu">
-                    @*<div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                <span id="LblUserName"></span>&nbsp;&nbsp;
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                <li>@Html.ActionLink("Login", "Login", "Home")</li>
-                                <li>@Html.ActionLink("Sign up", "signup", "Home")</li>
-                                <li>@Html.ActionLink("My Bookings", "Index", "Orders")</li>
-                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                            </ul>
-                        </div>*@
                     <div class="navbar-collapse collapse">
 
                         <ul class="nav navbar-nav">
-                            <li style="text-decoration-color:black">@Html.ActionLink("Login", "Login", "Home")</li>
-                            <li>@Html.ActionLink("Sign up", "signup", "Home")</li>
+                            @if (@Session["username"] != null)
+                            {
+                                <li role="presentation"><a>Welcome @Session["username"] !!!</a></li>                                
+                            }
+                            @if (@Session["username"] == null)
+                            {
+                                <li style="text-decoration-color:black">@Html.ActionLink("Login", "Login", "Home")</li>
+                                <li>@Html.ActionLink("Sign up", "signup", "Home")</li>
+                            }
                             <li>@Html.ActionLink("My Bookings", "Index", "Orders")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            @if (@Session["username"] != null)
+                            {
+                                @*<li role="presentation"><a>@Session["username"]</a></li>*@
+
+                                <li>@Html.ActionLink("Signout", "Signout", "Home")</li>
+                            }
                         </ul>
                     </div>
 
