@@ -13,21 +13,21 @@
 @{int qty = 0;}
 @{int flight_id = 0;}
 @{int customer_id = 1;}
-<table>
+<table class="table table-striped table-bordered table-hover table-full-width dataTable">
     <tr>
-        <td><b>flight_id</b></td>
-        <td><b>airline_name</b></td>
-        <td><b>flight_no</b></td>
-        <td><b>flight_from</b></td>
-        <td><b>flight_to</b></td>
-        <td><b>operating_date_from</b></td>
-        <td><b>operating_date_to</b></td>
-        <td><b>flight_timing_from</b></td>
-        <td><b>flight_timing_to</b></td>
-        <td><b>class_type</b></td>
-        <td><b>eco_cost</b></td>
-        <td><b>Qty</b></td>
-        <td><b>Total Cost</b></td>
+        <th><b>Flight Id</b></th>
+        <th><b>Airline Name</b></th>
+        <th><b>Flight No.</b></th>
+        <th><b>Flight From</b></th>
+        <th><b>Flight To</b></th>
+        <th><b>(Date)Flying From</b></th>
+        <th><b>(Date)Flying to</b></th>
+        <th><b>Flight Timing From</b></th>
+        <th><b>Flight Timing To</b></th>
+        <th><b>Class Type</b></th>
+        <th><b>Cost/person</b></th>
+        <th><b>Qty</b></th>
+        <th><b>Total Cost</b></th>
     </tr>
     @foreach (var eachFlight in (IEnumerable<Hashtable>)TempData["flight_details"])
     {
@@ -46,7 +46,7 @@
             <td>@eachFlight["qty"]</td>
             <td>@eachFlight["Totalcost"]</td>
             @{total = (int)eachFlight["Totalcost"];}
-            @{qty = Int32.Parse((String)eachFlight["qty"]);}
+            @{qty = (int)eachFlight["qty"];}
             @{flight_id = (int)eachFlight["flight_id"];}
         </tr>
                 }

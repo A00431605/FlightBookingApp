@@ -34,8 +34,7 @@ namespace FlightBookingApp.Models
 
 
         [Required]
-        [MaxLength(140)]
-        public string people_count { get; set; }
+        public int people_count { get; set; }
 
 
 
