@@ -192,6 +192,8 @@
     <Content Include="Views\Payment\PaymentConfirmation.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\OrderCancel.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Home\AboutUS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
