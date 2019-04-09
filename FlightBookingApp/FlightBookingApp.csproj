@@ -321,6 +321,8 @@
     <Content Include="Views\Orders\OrderCancel.cshtml" />
     <Content Include="Views\Search\SearchPage.cshtml" />
     <Content Include="Views\Home\ForgotPasswordView.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Home\AboutUS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
