@@ -17,11 +17,11 @@ namespace FlightBookingApp.Controllers
     {
         public ActionResult Index()
         {
-            Search sd = new Search();
-            FlightBookingEntity db = new FlightBookingEntity();
-            List<airline> ob = db.airlines.ToList();
+            //Search sd = new Search();
+            //FlightBookingEntity db = new FlightBookingEntity();
+            //List<airline> ob = db.airlines.ToList();
             
-            return View(sd);
+            return View();
 
         }
 
