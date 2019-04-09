@@ -20,6 +20,7 @@ namespace FlightBookingApp.Controllers
             }
             else
             {
+                Session["flight_id"] = f.flight_id;
                 Hashtable orderdetails = new Hashtable();
                 orderdetails.Add("flight_id", f.flight_id);
                 orderdetails.Add("airline_name", f.airline_id);
@@ -107,7 +108,7 @@ namespace FlightBookingApp.Controllers
             cmd.CommandType = System.Data.CommandType.Text;
 
             string sqlPattern = "INSERT into booking_details (customer_id, flight_id, payment, qty, status, passenger_id) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}'); SELECT SCOPE_IDENTITY()";
-            cmd.CommandText = String.Format(sqlPattern, bd.customer_id, bd.flight_id, bd.payment, bd.qty, "SUCCESS", bd.passenger_id);
+            cmd.CommandText = String.Format(sqlPattern, (int)Session["userId"], Session["flight_id"], bd.payment, bd.qty, "SUCCESS", bd.passenger_id);
             cmd.Connection = sqlConnection1;
             System.Diagnostics.Debug.WriteLine(cmd.CommandText);
             sqlConnection1.Open();
