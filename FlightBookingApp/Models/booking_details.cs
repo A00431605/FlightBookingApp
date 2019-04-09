@@ -41,5 +41,8 @@ namespace FlightBookingApp.Models
 
         [Required(ErrorMessage = "Please select valid expiry date")]
         public string expDate { get; set; }
+
+        [Required(ErrorMessage = "Please enter passenger details first")]
+        public string passenger_id { get; set; }
     }
 }

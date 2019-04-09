@@ -1,87 +1,451 @@
 ﻿@using System.Collections
 @using FlightBookingApp.Models
-@*@model IEnumerable<Hashtable>*@
-@model booking_details
+@model Tuple<booking_details, passenger>
 @{
     ViewBag.Title = "Payment";
 }
 <h2>Order details</h2>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+@*<script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>*@
+@*<script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>*@
 @{int total = 0;}
 @{int qty = 0;}
 @{int flight_id = 0;}
 @{int customer_id = 1;}
-<table border="1px">
+<table>
+    <tr>
+        <td><b>flight_id</b></td>
+        <td><b>airline_name</b></td>
+        <td><b>flight_no</b></td>
+        <td><b>flight_from</b></td>
+        <td><b>flight_to</b></td>
+        <td><b>operating_date_from</b></td>
+        <td><b>operating_date_to</b></td>
+        <td><b>flight_timing_from</b></td>
+        <td><b>flight_timing_to</b></td>
+        <td><b>class_type</b></td>
+        <td><b>eco_cost</b></td>
+        <td><b>Qty</b></td>
+        <td><b>Total Cost</b></td>
+    </tr>
     @foreach (var eachFlight in (IEnumerable<Hashtable>)TempData["flight_details"])
     {
-    <tr>
-        <td><b>flight_id</b>@eachFlight["flight_id"]</td>
-        <td><b>airline_name</b>@eachFlight["airline_name"]</td>
-        <td><b>flight_no</b>@eachFlight["flight_no"]</td>
-        <td><b>flight_from</b>@eachFlight["flight_from"]</td>
-        <td><b>flight_to</b>@eachFlight["flight_to"]</td>
-        <td><b>operating_date_from</b>@eachFlight["operating_date_from"]</td>
-        <td><b>operating_date_to</b>@eachFlight["operating_date_to"]</td>
-        <td><b>flight_timing_from</b>@eachFlight["flight_timing_from"]</td>
-        <td><b>flight_timing_to</b>@eachFlight["flight_timing_to"]</td>
-        <td><b>class_type</b>@eachFlight["class_type"]</td>
-        <td><b>eco_cost</b>@eachFlight["cost"]</td>
-        <td><b>Qty</b>@eachFlight["qty"]</td>
-        <td><b>Total Cost</b>@eachFlight["Totalcost"]</td>
-        @{total = (int)eachFlight["Totalcost"];}
-        @{qty = (int)eachFlight["qty"];}
-        @{flight_id = (int)eachFlight["flight_id"];}
-    </tr>
-    }
+        <tr>
+            <td>@eachFlight["flight_id"]</td>
+            <td>@eachFlight["airline_name"]</td>
+            <td>@eachFlight["flight_no"]</td>
+            <td>@eachFlight["flight_from"]</td>
+            <td>@eachFlight["flight_to"]</td>
+            <td>@eachFlight["operating_date_from"]</td>
+            <td>@eachFlight["operating_date_to"]</td>
+            <td>@eachFlight["flight_timing_from"]</td>
+            <td>@eachFlight["flight_timing_to"]</td>
+            <td>@eachFlight["class_type"]</td>
+            <td>@eachFlight["cost"]</td>
+            <td>@eachFlight["qty"]</td>
+            <td>@eachFlight["Totalcost"]</td>
+            @{total = (int)eachFlight["Totalcost"];}
+            @{qty = (int)eachFlight["qty"];}
+            @{flight_id = (int)eachFlight["flight_id"];}
+        </tr>
+                }
 </table>
+@{int i = 0;}
+@{
+    for (i = 1; i <= qty; i++)
+    {
+        using (Html.BeginForm("PassengerInsert", "Payment", FormMethod.Post, new { @id = "passenger_details" + i }))
+        {
+            <center>
+                @Html.ValidationSummary(true)
+                <div class="ValidMesg"></div>
+                <table>
+                    <caption style="color:black">
+                        Passenger @i  details
+                    </caption>
+                    <tr>
+                        <td>@Html.Label("Passenger Name")</td>
+                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_name, new { @Type = "text", @placeholder = "Passenger Name", @class = "form-control", @required = "required" })</td>
+                        <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passenger_name)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.Label("Passport Number")</td>
+                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passport_number, new { @Type = "text", @placeholder = "Passport Number", @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passport_number)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.Label("Address")</td>
+                        <td>@Html.TextAreaFor(Tuple => Tuple.Item2.passenger_address, new { @Type = "text", @placeholder = "Passenger Address", @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passenger_address)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.Label("Country")</td>
+                        <td>
+                            <select id="country" name="country" class="form-control">
+                                <option value="">---Select--</option>
+                                <option value="US">USA</option>
+                                <option value="CAN">Canada</option>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>@Html.Label("Postal code")</td>
+                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_postalCode, new { @placeholder = "Postal Code", @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passenger_postalCode)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.Label("Gender")</td>
+                        <td>
+                            <select name="gender" id="gender" class="form-control">
+                                <option value="">---Select--</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>@Html.Label("Passenger Email")</td>
+                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_emailAddress, new { @Type = "email", @placeholder = "Passenger Email", @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passenger_emailAddress)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.Label("Date of Birth")</td>
+                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_DOB, new { @Type = "date", @placeholder = "Birth Date", @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passenger_DOB)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.Label("Phone number")</td>
+                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_phoneNumber, new { @placeholder = "Phone number", @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passenger_phoneNumber)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.Label("Passport Expiry")</td>
+                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_expiry, new { @Type = "date", @placeholder = "Expiry", @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passenger_expiry)</td>
+                    </tr>
 
-<h2>Payment Page</h2>
-Amount of CAD @total will be deducted from your card.
-<form id="form1" method="post" action="/Payment/PaymentConfirmation" enctype="application/x-www-form-urlencoded">
-    @Html.ValidationSummary(true)
-    <div>
-        <label for="cc">Credit Card No</label>
-    </div>
-    <div>
-        @Html.TextBoxFor(Model => Model.cc, new { @class = "form-control" })
-    </div>
+                    <tr>
+                        <td colspan="2"><input id="submitButton" type="submit" value="Submit" class="form-control" onclick="passenger_details(@i)" /></td>
+                    </tr>
+                </table>
+            </center>
+        }
+    }
+}
 
-    <div>
-        <label for="NameOnCC">Name on credit card</label>
-    </div>
-    <div>
-        @Html.TextBoxFor(Model => Model.NameOnCC, new { @class = "form-control" })
-    </div>
+            <div class="payment">
+                <h2>Payment Page</h2>
+                Amount of CAD @total will be deducted from your card.
+                @using (Html.BeginForm("PaymentConfirmation", "Payment", FormMethod.Post, new { @id = "payment_details"}))
+                {
+                <centre>
+                    <table>
+                        <caption>@Html.ValidationSummary(true)</caption>
+                        <tr>
+                            <td><label for="cc">Credit Card No</label></td>
+                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.cc, new { @class = "form-control" })</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><label for="NameOnCC">Name on credit card</label></td>
+                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.NameOnCC, new { @class = "form-control" })</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><label for="cardType">Credit card type</label></td>
+                            <td>
+                                <div>
+                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "Visa", new { @id = "Visa", @style = "display:inline-block!important" })
+                                    @Html.Label("Visa")
 
-    <div>
-        <label for="cardType">Credit card type</label>
-    </div>
-    <div>
-        <div>
-            @Html.Label("Visa")
-            @Html.RadioButtonFor(Model => Model.cardType, "Visa")
+                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "MasterCard", new { @id = "MasterCard", @style = "display:inline-block!important" })
+                                    @Html.Label("Master Card", new { @for = "MasterCard" })
 
-            @Html.Label("Master Card")
-            @Html.RadioButtonFor(Model => Model.cardType, "MasterCard")
+                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "AmericanExpress", new { @id = "AmericanExpress", @style = "display:inline-block!important" })
+                                    @Html.Label("American Express", new { @for = "AmericanExpress" })
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
 
-            @Html.Label("American Express")
-            @Html.RadioButtonFor(Model => Model.cardType, "AmericanExpress")
+                        <tr>
+                            <td><label for="expDate">Expiration date</label></td>
+                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.expDate, new { type = "date", @class = "form-control" })</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="submit" value="Submit" class="form-control" onclick="payment_details()" /></td>
+                        </tr>
+                    </table>
+                    </centre>
+                }
+            </div>
 
-        </div>
-    </div>
+<script>
 
-    <div>
-        <label for="expDate">Expiration date</label>
-    </div>
-    <div>
-        @Html.TextBoxFor(Model =>Model.expDate, new { type = "date"})
-    </div>
-    @*<input type="hidden" name="payment" value="@total" />
-    <input type="hidden" name="status" value="'Booked'" />
-    <input type="hidden" name="flight_id" value="@flight_id" />
-    <input type="hidden" name="customer_id" value="@customer_id" />
-    <input type="hidden" name="qty" value="@qty" />*@
+    var passenger_infoIDs = [];
+    function payment_details() {
+        console.log("#payment_details invoked for validation");
 
-    <div>
-        <input type="submit" value="Submit" />
-    </div>
-</form>
+        $.validator.addMethod('creditcard', function (value) {
+            if (value.length == 16 && (value.toString().slice(0, 2) == "51" || value.toString().slice(0, 2) == "52"
+                || value.toString().slice(0, 2) == "53" || value.toString().slice(0, 2) == "54" || value.toString().slice(0, 2) == "55")) {
+                $("#MasterCard").trigger("click");
+                return true;
+            } else if (value.length == 16 && value.toString().slice(0, 1) == "4") {
+                $("#Visa").trigger("click");
+                return true;
+            } else if (value.length == 15 && (value.toString().slice(0, 2) == "34" || value.toString().slice(0, 2) == "37")) {
+                $("#AmericanExpress").trigger("click");
+                return true;
+            } else {
+                return false;
+            }
+            
+        }, 'Please enter valid credit card number.');
+
+        $.validator.addMethod('regexStringcard', function (value) {
+            target = ";:!#$%^*+?\/<>1234567890";
+            for (var i = 0; i < target.length; i++) {
+                if (value.indexOf(target.charAt(i)) != -1) {
+                    return false
+                }
+            }
+            return true;
+        }, 'Please enter valid name for credit card');
+
+        $.validator.addMethod('CCDate', function (value) {
+            today = new Date().toJSON().slice(0, 10);
+            if (value < today) {
+                return false;
+            } else {
+                return true;
+            }
+        }, 'Please enter valid expiry date of credit card.');
+
+        $("#payment_details").validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent("td").next("td"));
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                    url: $("#payment_details").attr('action'), // the url where we want to POST
+                    data: {
+                        customer_id: @customer_id,
+                        flight_id: @flight_id,
+                        payment: @total,
+                        qty: @qty,
+                        passenger_id: passenger_infoIDs.toString()
+                    },
+                    dataType: 'json', // what type of data do we expect back from the server
+                    encode: true
+                }).done(function (data) {
+                    if (data['status']) {
+                        $("#payment_details").hide();
+                        $(".payment").append("<h3>Order placed successfully</h3>");
+                    }
+                });
+            },
+            rules: {
+                'Item1.cc': {
+                    required: true,
+                    creditcard: true
+                },
+                'Item1.NameOnCC': {
+                    required: true,
+                    regexStringcard: true
+                },
+                'Item1.expDate': {
+                    required: true,
+                    CCDate: true
+                }
+            },
+            messages: {
+                'Item1.cc': {
+                    required: "Credit card number is required"
+                },
+                'Item1.NameOnCc': {
+                    required: "Name on Credit card is required"
+                },
+                'Item1.expDate': {
+                    required: "Expiry date is required"
+                }
+            }
+        });
+    }
+
+    $(".payment").hide();
+    function passenger_details(i) {
+        console.log("#passenger_details" + i + " invoked for validation");
+
+        $.validator.addMethod('Passport', function (value) {
+            return /^[0-9]{6,9}$/.test(value);
+        }, 'Please enter a valid Passport Number.');
+
+        $.validator.addMethod('PhoneNo', function (value) {
+            if (value.length == 10) {
+                return true;
+            } else {
+                return false;
+            }
+        }, 'Please enter a valid Phone number.');
+
+        $.validator.addMethod('regexString', function (value) {
+            target=";:!#$%^*+?\/<>";
+            for (var i = 0; i < target.length; i++) {
+                if (value.indexOf(target.charAt(i)) != -1) {
+                    return false
+                }
+            }
+            return true;
+        }, 'Please do not use characters like :!#$%^*+?\/<>.');
+
+        $.validator.addMethod('regexNoNumber', function (value) {
+            target = "1234567890";
+            for (var i = 0; i < target.length; i++) {
+                if (value.indexOf(target.charAt(i)) != -1) {
+                    return false
+                }
+            }
+            return true;
+        }, 'Please do not use numbers');
+
+        $.validator.addMethod('DOB', function (value) {
+            today = new Date().toJSON().slice(0, 10);
+            if (value > today) {
+                return false;
+            } else {
+                return true;
+            }
+        }, 'Please enter valid Date of Birth.');
+
+        $.validator.addMethod('Postal', function (value) {
+            if ($("#country").val() == 'US') {
+                return /^\d{5}(?:[\s-]\d{4})?$/.test(value);
+            } else if ($("#country").val() == 'CAN') {
+                return /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/.test(value);
+            }
+            return false;
+        }, 'Please enter a valid Zip/Pin code for '+$("#country").val());
+
+        $("#passenger_details"+i).validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent("td").next("td"));
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
+                    $.ajax({
+                        type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                        url: $("#passenger_details" + i).attr('action'), // the url where we want to POST
+                        data: {
+                            passenger_name: $("#passenger_details" + i + " #Item2_passenger_name").val(),
+                            passport_number: $("#passenger_details" + i + " #Item2_passport_number").val(),
+                            passenger_address: $("#passenger_details" + i + " #Item2_passenger_address").val(),
+                            passenger_postalCode: $("#passenger_details" + i + " #Item2_passenger_postalCode").val(),
+                            passenger_emailAddress: $("#passenger_details" + i + " #Item2_passenger_emailAddress").val(),
+                            passenger_DOB: $("#passenger_details" + i + " #Item2_passenger_DOB").val(),
+                            passenger_phoneNumber: $("#passenger_details" + i + " #Item2_passenger_phoneNumber").val(),
+                            passenger_expiry: $("#passenger_details" + i + " #Item2_passenger_expiry").val(),
+                            passenger_Country: $("#passenger_details" + i + " #country").val(),
+                            passenger_gender: $("#passenger_details" + i + " #gender").val() 
+                        },
+                        dataType: 'json', // what type of data do we expect back from the server
+                        encode: true
+                    }).done(function (data) {
+                        var resp = data;
+                        if (resp['status']) {
+                            passenger_infoIDs.push(resp['pass_id']);
+                            //alert(passenger_infoIDs);
+                            $("#passenger_details" + i + " div.ValidMesg").html("Details of Passenger " + i + " inserted successfully.");
+                            $("#passenger_details" + i + " table").hide();
+                            checkAndShowPayment();
+                        }
+                    });
+            },
+            rules: {
+                'Item2.passenger_name': {
+                    required: true,
+                    regexString: true,
+                    regexNoNumber:true
+                },
+                'Item2.passport_number': {
+                    required: true,
+                    Passport: true
+                },
+                'Item2.passenger_address': {
+                    required: true,
+                    regexString: true
+                },
+                'Item2.passenger_postalCode': {
+                    required: true,
+                    Postal:true
+                },
+                'Item2.passenger_emailAddress': {
+                    required: true,
+                    email:true
+                },
+                'Item2.passenger_DOB': {
+                    required: true,
+                    DOB:true
+                },
+                'Item2.passenger_phoneNumber': {
+                    required: true,
+                    PhoneNo:true
+                },
+                'Item2.passenger_expiry': {
+                    required: true
+                },
+                'country': {
+                    required: true
+                },
+                'gender': {
+                    required: true
+                },
+            },
+            messages: {
+                'Item2.passenger_name': {
+                    required: "Passenger Name is required"
+                },
+                'Item2.passport_number': {
+                    required: "Passenger Passport Number is required"
+                },
+                'Item2.passenger_address': {
+                    required: "Passenger Address is required"
+                },
+                'Item2.passenger_postalCode': {
+                    required: "Passenger postalCode is required"
+                },
+                'Item2.passenger_emailAddress': {
+                    required: "Passenger email is required"
+                },
+                'Item2.passenger_DOB': {
+                    required: "Passenger Date of Birth is required"
+                },
+                'Item2.passenger_phoneNumber': {
+                    required: "Passenger Phone number is required"
+                },
+                'Item2.passenger_expiry': {
+                    required: "Passenger Expiry is required"
+                },
+                'country': {
+                    required: "Passenger Country is required"
+                },
+                'gender': {
+                    required: "Passenger Gender is required"
+                }
+            }
+        });
+        return false;
+    }
+
+    function checkAndShowPayment() {
+        if (passenger_infoIDs.length == @qty) {
+            $(".payment").show();
+        }
+    }
+</script> 
