@@ -108,7 +108,7 @@
                     </tr>
                     <tr>
                         <td>@Html.Label("Passenger Email")</td>
-                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_emailAddress, new { @Type = "email", @placeholder = "Passenger Email", @class = "form-control"})</td>
+                        <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_emailAddress, new { @Type = "email", @placeholder = "Passenger Email", @class = "form-control" })</td>
                         <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passenger_emailAddress)</td>
                     </tr>
                     <tr>
@@ -126,63 +126,70 @@
                         <td>@Html.TextBoxFor(Tuple => Tuple.Item2.passenger_expiry, new { @Type = "date", @placeholder = "Expiry", @class = "form-control" })</td>
                         <td>@Html.ValidationMessageFor(Tuple => Tuple.Item2.passenger_expiry)</td>
                     </tr>
-
                     <tr>
-                        <td colspan="2"><input id="submitButton" type="submit" value="Submit" class="form-control" onclick="passenger_details(@i)" /></td>
+                        <br />
+                        
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input id="submitButton" type="submit" value="Submit" class="form-control btn btn-primary" onclick="passenger_details(@i)" /></td>
                     </tr>
                 </table>
             </center>
         }
     }
 }
+            <center>
+                <div class="payment">
+                    <h2>Payment Page</h2>
+                    Amount of CAD @total will be deducted from your card.
+                    @using (Html.BeginForm("PaymentConfirmation", "Payment", FormMethod.Post, new { @id = "payment_details" }))
+                    {
+                        <centre>
+                            <table>
+                                <caption>@Html.ValidationSummary(true)</caption>
+                                <tr>
+                                    <td><label for="cc">Credit Card No</label></td>
+                                    <td>@Html.TextBoxFor(Tuple => Tuple.Item1.cc, new { @class = "form-control" })</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="NameOnCC">Name on credit card</label></td>
+                                    <td>@Html.TextBoxFor(Tuple => Tuple.Item1.NameOnCC, new { @class = "form-control" })</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="cardType">Credit card type</label></td>
+                                    <td>
+                                        <div>
+                                            @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "Visa", new { @id = "Visa", @style = "display:inline-block!important", @disabled = "disabled" })
+                                            @Html.Label("Visa")
 
-            <div class="payment">
-                <h2>Payment Page</h2>
-                Amount of CAD @total will be deducted from your card.
-                @using (Html.BeginForm("PaymentConfirmation", "Payment", FormMethod.Post, new { @id = "payment_details"}))
-                {
-                <centre>
-                    <table>
-                        <caption>@Html.ValidationSummary(true)</caption>
-                        <tr>
-                            <td><label for="cc">Credit Card No</label></td>
-                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.cc, new { @class = "form-control" })</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><label for="NameOnCC">Name on credit card</label></td>
-                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.NameOnCC, new { @class = "form-control" })</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><label for="cardType">Credit card type</label></td>
-                            <td>
-                                <div>
-                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "Visa", new { @id = "Visa", @style = "display:inline-block!important", @disabled = "disabled" })
-                                    @Html.Label("Visa")
+                                            @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "MasterCard", new { @id = "MasterCard", @style = "display:inline-block!important", @disabled = "disabled" })
+                                            @Html.Label("Master Card", new { @for = "MasterCard" })
 
-                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "MasterCard", new { @id = "MasterCard", @style = "display:inline-block!important", @disabled = "disabled" })
-                                    @Html.Label("Master Card", new { @for = "MasterCard" })
+                                            @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "AmericanExpress", new { @id = "AmericanExpress", @style = "display:inline-block!important", @disabled = "disabled" })
+                                            @Html.Label("American Express", new { @for = "AmericanExpress" })
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
 
-                                    @Html.RadioButtonFor(Tuple => Tuple.Item1.cardType, "AmericanExpress", new { @id = "AmericanExpress", @style = "display:inline-block!important", @disabled = "disabled" })
-                                    @Html.Label("American Express", new { @for = "AmericanExpress" })
-                                </div>
-                            </td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td><label for="expDate">Expiration date</label></td>
-                            <td>@Html.TextBoxFor(Tuple => Tuple.Item1.expDate, new { type = "text", @placeholder="MM/YYYY",@class = "form-control" })</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><input type="submit" value="Submit" class="form-control" onclick="payment_details()" /></td>
-                        </tr>
-                    </table>
-                    </centre>
-                }
-            </div>
+                                <tr>
+                                    <td><label for="expDate">Expiration date</label></td>
+                                    <td>@Html.TextBoxFor(Tuple => Tuple.Item1.expDate, new { type = "text", @placeholder = "MM/YYYY", @class = "form-control" })</td>
+                                    <td></td>
+                                </tr>
+                                <br />
+                                <br />
+                                <br />
+                                <tr>
+                                    <td colspan="2"><input type="submit" value="Submit" class="form-control btn btn-primary" onclick="payment_details()" /></td>
+                                </tr>
+                            </table>
+                        </centre>
+                    }
+                </div>
+            </center>
 
 <script>
 

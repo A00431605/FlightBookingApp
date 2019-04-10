@@ -13,6 +13,7 @@ namespace FlightBookingApp.Models
 
         [StringLength(256)]
         [Display(Name = "Full Name")]
+        [RegularExpression("[^;:!@#$%^*+?<>0123456789]+", ErrorMessage = "Please enter a Valid Full Name")]
         [Required(ErrorMessage = "Name is required")]
         public string customer_name { get; set; }
 

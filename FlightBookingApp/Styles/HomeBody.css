@@ -10,7 +10,7 @@ body, td, th {
 }
 
 body {  
-    background-image: url('../images/giphy (3).gif');
+    background-image: url('../images/plane1.gif');
     background-size: cover;
     margin-left: 0px;
     margin-top: 0px;
@@ -30,7 +30,7 @@ body {
 }
 
 .HomeBCKImg {
-    background-image: url('../images/giphy (3).gif');
+    background-image: url('../images/plane1.gif');
     /*background-image: url(../images/BCK1.JPG);*/
     background-size: cover;
 }

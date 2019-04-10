@@ -243,6 +243,7 @@
     <Content Include="Images\mainbgd.png" />
     <Content Include="Images\ModifySearch.PNG" />
     <Content Include="images\plane.gif" />
+    <Content Include="images\plane1.gif" />
     <Content Include="Images\PlaneImg.PNG" />
     <Content Include="Images\Profile_Default.PNG" />
     <Content Include="Images\Round.PNG" />
