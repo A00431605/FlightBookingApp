@@ -74,6 +74,10 @@ namespace FlightBookingApp.Controllers
 
         public ActionResult ForgotPasswordView()
         {
+            if(Session["username"] == null)
+            {
+                return RedirectToAction("Index");
+            }
             //using (FlightBookingEntity db = new FlightBookingEntity())
             //{
             //    return View(db.customer_book.Where(x => x.customer_emailaddress == customerModel.customer_emailaddress).FirstOrDefault());
@@ -95,7 +99,7 @@ namespace FlightBookingApp.Controllers
             connection.Open();
             SqlCommand command = new SqlCommand(sqlSentence, connection);
             command.ExecuteNonQuery();
-            ViewData["message"] = "Password updated successfully.Go to Login Page!!!";
+            ViewData["message"] = "Password updated successfully.";
             return View();
         }
 
@@ -109,6 +113,7 @@ namespace FlightBookingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult signUp(customer_book customerModel1)
         {
+            Session["useremail"] = customerModel1.customer_emailaddress;
                 using (FlightBookingEntity db = new FlightBookingEntity())
                 {
                     db.customer_book.Add(customerModel1);

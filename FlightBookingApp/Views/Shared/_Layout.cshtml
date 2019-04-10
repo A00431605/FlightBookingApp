@@ -54,7 +54,7 @@
                         <ul class="nav navbar-nav">
                             @if (@Session["username"] != null)
                             {
-                                <li role="presentation"><a>Welcome @Session["username"] !!!</a></li>                                
+                                <li role="presentation"><a>Welcome @Session["username"] !!!</a></li>
                             }
                             @if (@Session["username"] == null)
                             {
@@ -68,7 +68,7 @@
                             @if (@Session["username"] != null)
                             {
                                 @*<li role="presentation"><a>@Session["username"]</a></li>*@
-
+                                <li>@Html.ActionLink("Change Password", "ForgotPasswordView", "Home")</li>
                                 <li>@Html.ActionLink("Signout", "Signout", "Home")</li>
                             }
                         </ul>
